@@ -1,0 +1,25 @@
+<button id="obnoxious-button" class="rounded-md bg-black">
+  <span class="block text-black bg-amber-400 -translate-x-2 -translate-y-2 rounded-md border-2 border-black p-4 text-xl transition-all hover:-translate-y-3 active:translate-x-0 active:translate-y-0">
+    DON'T PRESS ME
+  </span>
+</button>
+
+<style>
+  /* This is a hack to make the button work on mobile */
+  @keyframes btnPressAnimation {
+    0% {
+      transform: translate(-2px, -2px);
+    }
+    50% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(-2px, -2px);
+    }
+  }
+
+  .animate-press {
+    animation: btnPressAnimation 0.2s forwards;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>

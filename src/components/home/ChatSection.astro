@@ -1,0 +1,177 @@
+
+  <div id="chat-section" class="flex flex-col justify-center items-start p-6">
+      <div id="chat-container" class="flex flex-wrap items-start justify-start w-full max-lg:min-h-[20rem] max-lg:max-h-[35rem] lg:h-[20rem] p-8 mb-3 lg:mt-12 gap-4 overflow-y-auto rounded-l-box rounded-tr-box max-lg:rounded-r-box bg-base-100/40 border border-base-100 relative" _="init
+          set my scrollTop to 0
+        end
+        on intersection
+          transition #giga-chad-initial-message's opacity to 1
+          transition #user-initial-message's opacity to 1
+          transition #chat-response-buttons-container's opacity to 1
+          transition #excuses-container's opacity to 1
+        end">
+  
+<div id="chat-interaction" class="w-full">
+  
+  
+  
+    <div class="chat chat-start" id="giga-chad-initial-message" style="opacity: 1;">
+      <div class="chat-image avatar">
+        <div class="w-10 rounded-full">
+          <img src="/static/img/avatar-10x-giga-chad.85eb220f3dc1.webp" alt="Start Avatar">
+        </div>
+      </div>
+      <div class="chat-bubble bg-base-100/60">
+        Hey chief. I'm here to help you become a 10x engineer.
+      </div>
+    </div>
+  
+    <div class="chat chat-end" id="user-initial-message" style="opacity: 1;">
+  <div class="chat-image avatar">
+    <div class="w-10 rounded-full">
+      <img src="/static/img/avatar-default.6653c5f79b31.webp" alt="End Avatar">
+    </div>
+  </div>
+  <div class="chat-bubble">
+    I'm not ready to become a 10x engineer...
+  </div>
+</div>
+  
+</div>
+</div>
+
+
+<div id="chat-response-buttons-container" class="flex w-full gap-0.5 justify-center" style="opacity: 1;" _="on htmx:afterSettle(detail) from #chat-interaction
+          if detail.pathInfo.requestPath contains '/fetch_gigachad_gpt_response/'
+              for button in my children remove @disabled from button">
+
+  
+  
+    <button class="btn btn-ghost" _="on click
+                 set <#chat-response-buttons-container > button/>'s @disabled to true
+                 append `<div class=&quot;chat chat-end&quot;  >
+  <div class=&quot;chat-image avatar&quot;>
+    <div class=&quot;w-10 rounded-full&quot;>
+      <img src=&quot;/static/img/avatar-default.6653c5f79b31.webp&quot; alt=&quot;End Avatar&quot; />
+    </div>
+  </div>
+  <div class=&quot;chat-bubble&quot;>
+    I dont have any money
+  </div>
+</div>` to #chat-interaction
+                 set #chat-container's scrollTop to #chat-container's scrollHeight
+                 wait 0.5s
+                 append `<div class=&quot;chat chat-start&quot;
+     id=&quot;gigachad-message-to-replace&quot;>
+  <div class=&quot;chat-image avatar&quot;>
+    <div class=&quot;w-10 rounded-full&quot;>
+      <img src=&quot;/static/img/avatar-10x-giga-chad.85eb220f3dc1.webp&quot; alt=&quot;Start Avatar&quot; />
+    </div>
+  </div>
+  <div class=&quot;chat-bubble bg-base-100/60 flex justify-center items-center&quot;>
+    <span class=&quot;loading loading-dots loading-sm&quot;></span>
+  </div>
+</div>` to #chat-interaction
+                 set #chat-container's scrollTop to #chat-container's scrollHeight
+                 trigger requestGigaChadResponse
+                 wait for htmx:afterSettle from body
+                 remove me
+                 decrement $remainingExcuses
+                 if $remainingExcuses == 0
+                   put '📸 🤨 No excuses left' into #excuses
+                 else
+                   put `Excuses ${$remainingExcuses}/3` into #excuses
+                 end
+               end" hx-get="/fetch_gigachad_gpt_response/" hx-target="#gigachad-message-to-replace" hx-trigger="requestGigaChadResponse" hx-vals="js:{message_content: 'I dont have any money'}" hx-swap="outerHTML scroll:#chat-container:bottom">
+      <span>💰</span>
+      No Money
+    </button>
+  
+    <button class="btn btn-ghost" _="on click
+                 set <#chat-response-buttons-container > button/>'s @disabled to true
+                 append `<div class=&quot;chat chat-end&quot;  >
+  <div class=&quot;chat-image avatar&quot;>
+    <div class=&quot;w-10 rounded-full&quot;>
+      <img src=&quot;/static/img/avatar-default.6653c5f79b31.webp&quot; alt=&quot;End Avatar&quot; />
+    </div>
+  </div>
+  <div class=&quot;chat-bubble&quot;>
+    I dont have any time
+  </div>
+</div>` to #chat-interaction
+                 set #chat-container's scrollTop to #chat-container's scrollHeight
+                 wait 0.5s
+                 append `<div class=&quot;chat chat-start&quot;
+     id=&quot;gigachad-message-to-replace&quot;>
+  <div class=&quot;chat-image avatar&quot;>
+    <div class=&quot;w-10 rounded-full&quot;>
+      <img src=&quot;/static/img/avatar-10x-giga-chad.85eb220f3dc1.webp&quot; alt=&quot;Start Avatar&quot; />
+    </div>
+  </div>
+  <div class=&quot;chat-bubble bg-base-100/60 flex justify-center items-center&quot;>
+    <span class=&quot;loading loading-dots loading-sm&quot;></span>
+  </div>
+</div>` to #chat-interaction
+                 set #chat-container's scrollTop to #chat-container's scrollHeight
+                 trigger requestGigaChadResponse
+                 wait for htmx:afterSettle from body
+                 remove me
+                 decrement $remainingExcuses
+                 if $remainingExcuses == 0
+                   put '📸 🤨 No excuses left' into #excuses
+                 else
+                   put `Excuses ${$remainingExcuses}/3` into #excuses
+                 end
+               end" hx-get="/fetch_gigachad_gpt_response/" hx-target="#gigachad-message-to-replace" hx-trigger="requestGigaChadResponse" hx-vals="js:{message_content: 'I dont have any time'}" hx-swap="outerHTML scroll:#chat-container:bottom">
+      <span>🕐</span>
+      No Time
+    </button>
+  
+    <button class="btn btn-ghost" _="on click
+                 set <#chat-response-buttons-container > button/>'s @disabled to true
+                 append `<div class=&quot;chat chat-end&quot;  >
+  <div class=&quot;chat-image avatar&quot;>
+    <div class=&quot;w-10 rounded-full&quot;>
+      <img src=&quot;/static/img/avatar-default.6653c5f79b31.webp&quot; alt=&quot;End Avatar&quot; />
+    </div>
+  </div>
+  <div class=&quot;chat-bubble&quot;>
+    I dont have any talent
+  </div>
+</div>` to #chat-interaction
+                 set #chat-container's scrollTop to #chat-container's scrollHeight
+                 wait 0.5s
+                 append `<div class=&quot;chat chat-start&quot;
+     id=&quot;gigachad-message-to-replace&quot;>
+  <div class=&quot;chat-image avatar&quot;>
+    <div class=&quot;w-10 rounded-full&quot;>
+      <img src=&quot;/static/img/avatar-10x-giga-chad.85eb220f3dc1.webp&quot; alt=&quot;Start Avatar&quot; />
+    </div>
+  </div>
+  <div class=&quot;chat-bubble bg-base-100/60 flex justify-center items-center&quot;>
+    <span class=&quot;loading loading-dots loading-sm&quot;></span>
+  </div>
+</div>` to #chat-interaction
+                 set #chat-container's scrollTop to #chat-container's scrollHeight
+                 trigger requestGigaChadResponse
+                 wait for htmx:afterSettle from body
+                 remove me
+                 decrement $remainingExcuses
+                 if $remainingExcuses == 0
+                   put '📸 🤨 No excuses left' into #excuses
+                 else
+                   put `Excuses ${$remainingExcuses}/3` into #excuses
+                 end
+               end" hx-get="/fetch_gigachad_gpt_response/" hx-target="#gigachad-message-to-replace" hx-trigger="requestGigaChadResponse" hx-vals="js:{message_content: 'I dont have any talent'}" hx-swap="outerHTML scroll:#chat-container:bottom">
+      <span>🚫</span>
+      No Talent
+    </button>
+  
+</div>
+
+
+<div id="excuses-container" class="flex w-full mt-3 justify-center" style="opacity: 1;">
+  <p id="excuses" class="text-lg text-gray-400" _="init set $remainingExcuses to 3">
+    Excuses 3/3
+  </p>
+</div>
+    </div>
