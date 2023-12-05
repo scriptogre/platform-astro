@@ -1,0 +1,51 @@
+---
+// HeroSection.astro
+
+import { Image } from "astro:assets";
+
+import ObnoxiousButton from "./ObnoxiousButton.astro";
+
+interface Props {
+  logoImage?: string;
+  logoAlt?: string;
+  mainTitle?: string;
+  subTitle?: string;
+  description?: string;
+  additionalText?: string;
+  hiddenMessage?: string;
+}
+
+const {
+  logoImage = '/python-logo.webp',
+  logoAlt = 'Python Logo',
+  mainTitle = 'The Pyoneer Project',
+  subTitle = 'For the ambitious, by the ambitious',
+  description = 'Learn Full-Stack Python & Django the way I wish I had.',
+  additionalText = "You won't get these tips from ChatGPT",
+} = Astro.props;
+---
+
+<div id="hero-section" class="flex flex-col items-center justify-center min-w-[50%] flex-grow lg:h-auto mb-6 sm:mb-0 p-6 text-center prose">
+  <div class="flex flex-col items-center sm:flex-row sm:mb-3">
+    <Image src={logoImage} alt={logoAlt} width="250" height="250" class="w-16 h-16 mb-3 m-0 sm:mb-0 sm:me-4" />
+
+    <div class="flex flex-col justify-start">
+      <h1 class="text-5xl text-gray-300 font-mono tracking-wide xl:tracking-wider mb-0 lg:whitespace-nowrap">
+        {mainTitle}
+      </h1>
+      <span class="text-xl text-center sm:text-start">
+        {subTitle}
+      </span>
+    </div>
+  </div>
+
+  <p class="text-2xl text-gray-300 2xl:my-6">
+    {description}
+  </p>
+
+  <span class="sm:mt-3 mb-6">
+    {additionalText}
+  </span>
+
+  <ObnoxiousButton/>
+</div>

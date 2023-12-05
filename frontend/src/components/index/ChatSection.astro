@@ -1,0 +1,53 @@
+---
+// ChatSection.astro
+
+import { Image } from 'astro:assets';
+
+import ChatMessage from "./ChatMessage.astro";
+---
+<div id="chat-section" class="flex flex-col justify-center items-start p-6">
+
+    <div id="chat-container" class="flex flex-wrap items-start justify-start w-full max-lg:min-h-[20rem] max-lg:max-h-[35rem] lg:h-[20rem] p-8 mb-3 lg:mt-12 gap-4 overflow-y-auto rounded-l-box rounded-tr-box max-lg:rounded-r-box bg-base-100/40 border border-base-100 relative">
+        <div id="chat-interaction" class="w-full flex flex-col">
+            <ChatMessage from="gigachad">
+                Hey chief. I'm here to help you become a 10x engineer.
+            </ChatMessage>
+            <ChatMessage from="user">
+                I'm not ready to become a 10x engineer...
+            </ChatMessage>
+            <div class="loading-message-indicator order-1">
+                <ChatMessage from="gigachad">
+                    <span class="loading loading-dots loading-sm"></span>
+                </ChatMessage>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Response Buttons -->
+    <div id="chat-response-buttons-container" class="flex w-full gap-0.5 justify-center">
+        {[
+            { icon: "💰", text: "No Money", message: "I dont have any money" },
+            { icon: "🕐", text: "No Time", message: "I dont have any time" },
+            { icon: "🚫", text: "No Talent", message: "I dont have any talent" }
+        ].map(option => (
+                <button class="btn btn-ghost"
+                        hx-get='/partials/chat'
+                        hx-target="#chat-interaction"
+                        hx-swap="beforeend"
+                        hx-trigger="click delay:0.5s"
+                        hx-select=".chat"
+                        hx-indicator=".loading-message-indicator"
+                        _={`on click call htmx.ajax('GET', '/partials/chat', { target: '#chat-interaction', swap: 'beforeend', select: '.chat', values: { 'message': '${option.message}', 'from': 'user' } })`}>
+                    <span>{option.icon}</span>
+                    {option.text}
+                </button>
+        ))}
+    </div>
+
+    <!-- Excuses Container -->
+    <div id="excuses-container" class="flex w-full mt-3 justify-center">
+        <p id="excuses" class="text-lg text-gray-400">
+            Excuses 3/3
+        </p>
+    </div>
+</div>
