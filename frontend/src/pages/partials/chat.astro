@@ -1,0 +1,24 @@
+---
+import ChatMessage from "../../components/index/ChatMessage.astro";
+
+let message;
+let from;
+
+if (Astro.url.searchParams.has("message") && Astro.url.searchParams.has("from")) {
+    // If the request has a query string, use that to render the ChatMessage
+    message = Astro.url.searchParams.get("message")!;
+    from = Astro.url.searchParams.get("from")!;
+} else {
+    // Otherwise, fetch the message from the server
+    const response = await fetch('http://localhost:4321/gigachad_answer.json');
+        // Add 1 second delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    const data = await response.json();
+    from = data.from;
+    message = data.message;
+}
+---
+
+<ChatMessage from={from}>
+    {message}
+</ChatMessage>

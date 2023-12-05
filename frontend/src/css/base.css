@@ -13,6 +13,12 @@
   .prose img {
     @apply rounded-3xl
   }
+  .loading-message-indicator {
+    @apply hidden
+  }
+  .htmx-request.loading-message-indicator {
+    @apply flex
+  }
 }
 
 @layer components {
@@ -27,6 +33,9 @@
   }
   .btn-glassy {
     @apply bg-base-100/70 backdrop-blur border border-gray-700 hover:bg-base-content/10 hover:border-gray-500
+  }
+  .chat-bubble {
+    @apply flex
   }
 }
 

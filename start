@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Start the backend server in a subshell
+echo "Starting FastAPI server..."
+(cd backend && uvicorn main:app --reload) & backend_process_id=$!
+
+# Start the frontend server in a subshell
+echo "Starting Astro server..."
+(cd frontend && bun run dev) & frotend_process_id=$!
+
+# Wait for these specific processes to complete
+wait $backend_process_id $frotend_process_id
+
+# Exit when any process exits
+kill 0

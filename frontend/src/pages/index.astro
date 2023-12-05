@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/index/HeroSection.astro';
+import ChatSection from "../components/index/ChatSection.astro";
+import AnnouncementBar from "../components/index/AnnouncementBar.astro";
+import BouncingAlert from "../components/index/BouncingAlert.astro";
+import SpecialAnnouncement from "../components/index/SpecialAnnouncement.astro";
+---
+
+<Layout title="Your Path To Full Stack Python">
+
+  <div class="flex items-center justify-center mt-8 sm:mt-16 md:mt-20 lg:mt-24 xl:mt-28">
+    <AnnouncementBar message="The first module is here!  🎉"/>
+  </div>
+
+  <div class="flex flex-col lg:flex-row items-center justify-center">
+    <HeroSection/>
+    <ChatSection/>
+  </div>
+
+  <div class="flex flex-col justify-center items-center mt-20 xl:mt-32">
+    <BouncingAlert message="Huge news! 🙏" href="#news-section" />
+  </div>
+
+  <div id="news-section" class="h-screen grid place-content-center text-center py-6">
+    <SpecialAnnouncement
+        title="The first module is here! 🎉"
+        description="Press the golden card to check it out!"
+        href="/first-module"
+    />
+  </div>
+</Layout>
