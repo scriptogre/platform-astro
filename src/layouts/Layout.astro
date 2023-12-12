@@ -1,0 +1,88 @@
+---
+import '../css/base.css';
+import '@fontsource/bebas-neue';
+import LogoText from "../components/LogoText.astro";
+import DiscordButton from "../components/discord/DiscordButton.astro";
+import ButtonDrawer from "../components/DrawerButton.astro";
+import {Icon} from "astro-icon/components";
+import SideNavigation from "../components/SideNavigation.astro";
+
+interface Props {
+    title: string;
+}
+
+const { title, isDrawerOpen } = Astro.props
+
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth dark" style="color-scheme: dark" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | The Pyoneer Project</title>
+    <script defer src="https://unpkg.com/htmx.org"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+</head>
+
+<body class="bg-custom-gradient bg-fixed min-h-screen antialiased transition ease-in-out duration-200"
+      _="on mutation  // make sure there's never more than 1 modal being opened
+          if <dialog.modal/>'s length is greater than 1
+            remove first from <dialog.modal/>">
+
+<!-- Navbar -->
+<nav class="sticky navbar container px-6 xs:px-8 top-0 z-30 min-w-full bg-custom-gradient bg-opacity-90 bg-fixed backdrop-blur border-b border-base-100">
+    <div class="navbar-start xs:space-x-2">
+        <ButtonDrawer toggleId="drawer" class={isDrawerOpen && 'lg:hidden'} />
+        <LogoText />
+    </div>
+
+    <div class="navbar-end">
+        <DiscordButton class="me-2" inviteLink="https://discord.gg/TSMacaF9SG" />
+        <div hx-get="/partials/user" hx-swap="outerHTML" hx-trigger="load" class="w-[40px]"></div>
+    </div>
+</nav>
+
+{/* Drawer - https://daisyui.com/components/drawer/ */}
+<div class={`drawer ${isDrawerOpen && 'lg:drawer-open'}`}>
+    <input id="drawer" class="drawer-toggle" type="checkbox" autocomplete="off" />
+
+    <div class="drawer-side !fixed z-20">
+        <aside class="min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100 mt-16">
+
+            <SideNavigation />
+
+        </aside>
+    </div>
+
+    <div class="drawer-content min-w-full px-6 xs:px-8">
+
+        <slot /> <!-- Page content goes here -->
+
+
+        <!-- Footer -->
+        <footer class="container mx-auto text-base-content text-center p-12 pb-16 lg:mt-12">
+            <div class="flex justify-center items-center p-2 space-x-4">
+                <a href="https://github.com/scriptogre" target="_blank" class="hover:text-gray-100">
+                    <Icon name="ri:github-fill" class="w-6 h-6"/>
+                </a>
+
+                <a href="https://www.linkedin.com/in/christian-tanul-94333a17a/" target="_blank" class="hover:text-gray-100">
+                    <i class="w-5">
+                        <Icon name="ri:linkedin-fill" class="w-6 h-6"/>
+                    </i>
+                </a>
+            </div>
+
+            <div class="text-xs pt-2">
+                Copyright © 2023 Scriptogre LLC
+            </div>
+        </footer>
+    </div>
+</div>
+
+</body>
+</html>

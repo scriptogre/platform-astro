@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+
+const { lesson } = Astro.props;
+
+// Fetch all lessons for the course
+const courseLessons = await getCollection('course_lessons')
+
+// Get the index of the current lesson within the current chapter
+const currentLessonIndex = lesson.data.index
+
+// Calculate the total number of lessons in the current chapter
+const totalLessonsInChapter = courseLessons
+    .filter(l => l.data.chapter.id === lesson.data.chapter.id)
+    .length
+
+// Calculate the percentage of the chapter that has been completed
+const chapterCompletionPercentage = (currentLessonIndex / totalLessonsInChapter) * 100
+---
+<div class="border-progress" style={`width: ${chapterCompletionPercentage}%`}></div>

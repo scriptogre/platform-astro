@@ -1,0 +1,27 @@
+---
+import {getCollection} from "astro:content";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths({ paginate }) {
+    // Fetch all lessons including meta.md files
+    const blogs = await getCollection('blogs');
+
+    // Generate paths for each lesson
+    return blogs.map(blog => {
+        return {
+            params: { blog: blog.slug },
+            props: { blog }
+        }
+    });
+}
+
+const { blog } = Astro.props;
+const { Content } = await blog.render();
+---
+<ContentLayout title={`${blog.data.title}`}>
+    <h1 slot="header" class="text-4xl mt-4">
+        {blog.data.title}
+    </h1>
+
+    <Content slot="content" />
+</ContentLayout>

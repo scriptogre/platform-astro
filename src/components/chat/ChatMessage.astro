@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import avatar10xGigaChad from '../../images/avatar-10x-giga-chad.webp';
+import avatarDefault from '../../images/avatar-default.webp';
+
+interface Props {
+  sender: 'user' | 'gpt'
+  text: string
+  id?: string
+}
+
+const { id, sender, text } = Astro.props
+
+---
+
+<div class:list={[ 'chat', { 'chat-end': sender === 'user', 'chat-start': sender === 'gpt' } ]}>
+    <div class="chat-image avatar">
+        <div class="w-10 rounded-full">
+            <Image src={sender === 'user' ? avatarDefault : avatar10xGigaChad} alt={sender === 'user' ? 'User Avatar' : 'Giga Chad Avatar'} width="40" height="40" />
+        </div>
+    </div>
+    <div class:list={[ 'flex chat-bubble', { 'bg-base-100/60': sender === 'gpt'} ]}>
+        {text}
+        <slot/>
+    </div>
+</div>
+

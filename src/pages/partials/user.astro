@@ -1,0 +1,51 @@
+---
+import { supabase } from "../../lib/supabase";
+import LoginBtn from "../../components/LoginBtn.astro";
+import UserAvatar from "../../components/UserAvatar.astro";
+import { Icon } from 'astro-icon/components';
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+let isLoggedIn = true;
+
+if (!accessToken || !refreshToken) {
+    isLoggedIn = false;
+}
+
+const { data, error } = await supabase.auth.setSession({
+    refresh_token: refreshToken?.value,
+    access_token: accessToken?.value,
+});
+
+if (error) {
+    cookies.delete("sb-access-token", {
+        path: "/",
+    });
+    cookies.delete("sb-refresh-token", {
+        path: "/",
+    });
+
+    isLoggedIn = false;
+}
+
+const avatar_url = data?.user?.user_metadata.avatar_url
+---
+{isLoggedIn ?
+<div class="dropdown dropdown-bottom dropdown-end">
+  <div tabindex="0" role="button">
+     <UserAvatar src={avatar_url} />
+  </div>
+  <ul tabindex="0" class="dropdown-content z-[1] w-32 menu text-sm text-base-content bg-base-100/60 backdrop-blur border border-base-100 rounded-xl">
+    <li>
+      <a href="/api/auth/signout" class="font-semibold">
+        <Icon name="mdi:logout" class="w-5 h-5" />
+      Logout
+      </a>
+    </li>
+  </ul>
+</div>
+    :
+<LoginBtn />}

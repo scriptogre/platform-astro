@@ -1,0 +1,56 @@
+---
+import Modal from "../components/Modal.astro";
+import {Icon} from "astro-icon/components";
+---
+
+<Modal>
+  <h3 id="signup-title" class="text-xl font-bold mb-6">
+    Create your account
+  </h3>
+
+  <form id="signup-form"
+        hx-post="/api/auth/register"
+        hx-target="body"
+        hx-swap="beforeend"
+        _="on htmx:beforeSwap from body
+           if event.detail.pathInfo.responsePath is '/'
+             set event.detail.shouldSwap to false
+             reload() the location of the window
+           end">
+
+    <input type="email" name="email" placeholder="Email address" autocomplete="email" maxlength="320" class="input input-bordered input-ghost w-full mb-4">
+    <input type="password" name="password1" placeholder="Password" autocomplete="new-password" class="input input-bordered input-ghost w-full mb-4">
+    <input type="password" name="password2" placeholder="Password (again)" autocomplete="new-password" class="input input-bordered input-ghost w-full mb-4">
+
+    <button id="signup-button" type="submit" class="btn btn-warning w-full mb-4">
+      Sign Up
+    </button>
+
+    <span class="text-sm text-center font-light text-warning-600 dark:text-primary-500">
+      Already have an account?
+      <a id="sign-up-link"
+         hx-get="/signin"
+         hx-target="body"
+         hx-swap="beforeend"
+         class="font-medium text-primary-content hover:underline hover:cursor-pointer">
+        Sign in
+      </a>
+    </span>
+
+    <span class="divider text-sm flex justify-center mb-6">OR</span>
+
+    <div class="flex justify-center items-center gap-4">
+      <button class="hover:text-gray-100" value="google" name="provider" type="submit">
+        <Icon name="ri:google-fill" class="w-6 h-6" />
+      </button>
+
+      <button class="hover:text-gray-100" value="discord" name="provider" type="submit">
+        <Icon name="ri:discord-fill" class="w-6 h-6" />
+      </button>
+
+      <button class="hover:text-gray-100" value="github" name="provider" type="submit">
+        <Icon name="ri:github-fill" class="w-6 h-6" />
+      </button>
+    </div>
+  </form>
+</Modal>

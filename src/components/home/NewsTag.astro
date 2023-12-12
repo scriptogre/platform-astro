@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+    href: string;
+    highlightText: string;
+    message: string;
+}
+const { href = '', highlightText = 'New', message} = Astro.props;
+---
+<a href={href}
+   class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-base-content bg-base-100/60 backdrop-blur border border-base-100 hover:bg-base-content/10 hover:border-gray-700 rounded-full"
+   role="alert">
+    <span class="text-xs bg-warning rounded-full text-black px-4 py-1.5 mr-3">
+        {highlightText}
+    </span>
+
+    <span class="text-sm font-medium whitespace-nowrap mr-2">
+        {message}
+    </span>
+
+    <Icon name="mdi:chevron-right" class="w-5 h-5" />
+</a>

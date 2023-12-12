@@ -1,0 +1,35 @@
+---
+// Announcement.astro
+
+import GoldenCard from "./GoldenCard.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+}
+const { title, description, href} = Astro.props;
+---
+
+<section class="special-announcement">
+  <div class="mb-4">
+    <span class="text-3xl md:text-4xl lg:text-5xl">
+      {title}
+    </span>
+  </div>
+  <div class="mb-4 lg:mb-8">
+    <span class="text-lg md:text-xl lg:text-2xl prose">
+      {description}
+    </span>
+  </div>
+  <div class="flex justify-center mb-4 lg:mb-8">
+    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"></path>
+    </svg>
+  </div>
+  <a {href} class="hover:scale-105 transition-transform ease-in-out duration-500"
+     _="on mouseover add .shadow-inner-golden to <body/> end
+        on mouseout or htmx:afterOnLoad remove .shadow-inner-golden from <body/> end">
+    <GoldenCard/>
+  </a>
+</section>

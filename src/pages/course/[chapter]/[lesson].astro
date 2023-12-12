@@ -1,0 +1,62 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { Icon } from "astro-icon/components";
+
+import NavigationArrows from "../_NavigationArrows.astro";
+import {isLastLessonOfChapter} from "../../../utils";
+import ContentLayout from "../../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths({ paginate }) {
+    // Fetch all lessons including meta.md files
+    const lessons = await getCollection('course_lessons');
+
+    // Generate paths for each lesson
+    return lessons.map(lesson => {
+
+        // Split the slug into chapter and lesson slugs (because Astro doesn't offer easy access to each part of the slug)
+        let [chapterSlug, lessonSlug] = lesson.slug.split("/");
+
+        return {
+            params: { chapter: chapterSlug, lesson: lessonSlug },
+            props: { lesson }
+        }
+    });
+}
+
+const { lesson } = Astro.props;
+const chapter = await getEntry(lesson.data.chapter);
+const isLast = await isLastLessonOfChapter(lesson)
+
+const { Content } = await lesson.render();
+---
+<ContentLayout title={`${lesson.data.title} - ${chapter.data.title}`}>
+    <div slot="header">
+        <span class="text-base-content/80 text-sm">
+            {chapter.data.title}
+            <Icon name="mdi:chevron-right" class="inline-block w-4 h-4 mr-1" />
+        </span>
+
+        <h1 class="text-4xl mt-4">
+            {lesson.data.title}
+        </h1>
+    </div>
+
+    <div slot="content">
+        <Content />
+
+        {
+            (isLast) ? (
+                    <div class="flex flex-col w-full">
+                        <div class="divider py-12 text-sm">
+                            End of {chapter.data.title}
+                        </div>
+                    </div>
+            ) : ""
+        }
+
+        <div class="not-prose">
+            <NavigationArrows lesson={lesson} />
+        </div>
+    </div>
+
+</ContentLayout>
