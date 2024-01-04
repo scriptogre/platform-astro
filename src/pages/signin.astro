@@ -26,6 +26,7 @@ if (accessToken && refreshToken) {
         method="post"
         hx-target="body"
         hx-swap="beforeend"
+        hx-boost="false"
         _="on htmx:beforeSwap from body
            if event.detail.pathInfo.responsePath is '/'
              set event.detail.shouldSwap to false
@@ -68,15 +69,15 @@ if (accessToken && refreshToken) {
 
     <div class="flex justify-center items-center gap-4">
       <button class="hover:text-gray-100" value="google" name="provider" type="submit">
-        <Icon name="ri:google-fill" class="w-6 h-6" />
+        <Icon name="ri:google-fill" class="size-6" />
       </button>
 
       <button class="hover:text-gray-100" value="github" name="provider" type="submit">
-        <Icon name="ri:github-fill" class="w-6 h-6" />
+        <Icon name="ri:github-fill" class="size-6" />
       </button>
 
       <button class="hover:text-gray-100" value="discord" name="provider" type="submit">
-        <Icon name="ri:discord-fill" class="w-6 h-6" />
+        <Icon name="ri:discord-fill" class="size-6" />
       </button>
     </div>
   </form>

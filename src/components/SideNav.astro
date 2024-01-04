@@ -1,0 +1,115 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import { convertToRoman } from "../utils";
+
+const { title = 'Course', class: classList } = Astro.props;
+
+// Fetch content collections
+let chapters = await getCollection('course_chapters');
+let lessons = await getCollection('course_lessons');
+let blogs = await getCollection('blogs');
+
+// Sort chapters and lessons by index
+chapters.sort((a, b) => a.data.index - b.data.index);
+lessons.sort((a, b) => a.data.index - b.data.index);
+
+// Processing chapters and lessons data to create a structured array for UI rendering
+let chaptersArray = chapters.map(chapter => {
+    return {
+        ...chapter,
+        lessons: lessons.filter(lesson => lesson.data.chapter.id === chapter.id)
+    }
+});
+
+
+const isCoursePage = Astro.url.pathname.startsWith('/course');
+const isBlogPage = Astro.url.pathname.startsWith('/blogs');
+const isIndexPage = Astro.url.pathname == '/';
+
+const isActive = (entry) => {
+    if (isCoursePage) {
+        return Astro.url.pathname == `/course/${entry.slug}`;
+    } else if (isBlogPage) {
+        return Astro.url.pathname == `/blogs/${entry.slug}`;
+    } else {
+        return false;
+    }
+}
+---
+
+<nav id="side-nav" class={`${classList} min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`}>
+    <ul class="menu text-[1rem] space-y-2">
+
+        {/*
+        Course Menu
+        */}
+        <li>
+            <details id="course-navigation" open={isCoursePage || isIndexPage}>
+                <summary class="font-bold">
+                    <Icon name="ri:graduation-cap-fill" class="size-5 text-warning" />
+                    Course
+                </summary>
+                <ul>
+                    {chaptersArray.map(chapter => {
+                        return (
+                                <li>
+                                    <span class="text-[1rem] menu-title text-base-content/80">
+                                        {convertToRoman(chapter.data.index)}. {chapter.data.title}
+                                    </span>
+                                    <ul class="mt-2 space-y-2">
+                                        {chapter.lessons.map((lesson) => {
+                                            return (
+                                                    <li title={lesson.data.title}>
+                                                        {/* Bold and highlight active lesson */}
+                                                        <a href={`/course/${lesson.slug}`}
+                                                           class={`${isActive(lesson) && 'font-bold bg-base-content/10'}`}>
+
+                                                            {/* Include a right arrow icon if lesson is active */}
+                                                            {isActive(lesson) && <Icon name="mdi:chevron-right" class="size-5" />}
+
+                                                            <span class="text-ellipsis overflow-hidden">
+                                                                {lesson.data.index}. {lesson.data.title}
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                            )
+                                        })}
+                                    </ul>
+                                </li>
+                        )
+                    })}
+                </ul>
+            </details>
+        </li>
+
+        {/*
+        Blog Menu
+        */}
+        <li>
+            <details id="blog-navigation" open={isBlogPage || isIndexPage}>
+                <summary class="font-bold">
+                    <Icon name="ri:file-text-fill" class="size-5 text-orange-600" />
+                    Blogs
+                </summary>
+                <ul class="mt-2">
+                    {blogs.map(blog => {
+                        return (
+                                <li title={blog.data.title}>
+                                    <a href={`/blogs/${blog.slug}`}
+                                       class={`${isActive(blog) && 'font-bold bg-base-content/10'}`}>
+                                        {/* Include a right arrow icon if lesson is active */}
+                                        {isActive(blog) && <Icon name="mdi:chevron-right" class="size-5"/>}
+
+                                        <span class="text-ellipsis overflow-hidden">
+                                            {blog.data.title}
+                                        </span>
+                                    </a>
+                                </li>
+                        )
+                    })}
+                </ul>
+            </details>
+        </li>
+    </ul>
+</nav>

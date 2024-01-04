@@ -17,7 +17,7 @@ const nextLessonUrl = nextLesson && `/course/${nextLesson.slug}`;
 <div id="desktop-navigation-arrows" class:list={[classList, 'hidden lg:flex mt-12 items-center space-x-4 justify-between', {'!justify-start': previousLesson && !nextLesson}, {'!justify-end': !previousLesson && nextLesson}]}>
     {!!previousLesson &&
             <a href={previousLessonUrl} class="flex items-center justify-start w-full max-w-72 rounded-2xl text-base-content bg-transparent border border-base-content/20 hover:bg-base-content/10 hover:shadow-xl h-20">
-                <Icon name="solar:arrow-left-outline" class="w-5 h-5 ms-6" />
+                <Icon name="solar:arrow-left-outline" class="size-5 ms-6" />
                 <div class="flex flex-col ms-4 items-start justify-start">
                     <span class="text-sm">{chapterOfPreviousLesson.data.title}</span>
                     <span class="text-lg font-bold">{previousLesson.data.index}. {previousLesson.data.title}</span>
@@ -33,17 +33,17 @@ const nextLessonUrl = nextLesson && `/course/${nextLesson.slug}`;
                     </span>
                     <span class="text-lg font-bold">{nextLesson.data.index}. {nextLesson.data.title}</span>
                 </div>
-                <Icon name="solar:arrow-right-outline" class="w-5 h-5 me-6" />
+                <Icon name="solar:arrow-right-outline" class="size-5 me-6" />
             </a>
     }
 </div>
 
 <div id="mobile-navigation-arrows" class="lg:hidden mt-12 btm-nav btm-nav-sm bg-custom-gradient bg-opacity-50 bg-fixed border-t border-gray-700 border-opacity-80">
     <a href={previousLessonUrl} class="btn-ghost" disabled={!previousLesson}>
-        <Icon name="solar:alt-arrow-left-outline" class="w-6 h-6" />
+        <Icon name="solar:alt-arrow-left-outline" class="size-6" />
     </a>
 
     <a href={nextLessonUrl} class="btn-ghost" disabled={!nextLesson}>
-        <Icon name="solar:alt-arrow-right-outline" class="w-6 h-6" />
+        <Icon name="solar:alt-arrow-right-outline" class="size-6" />
     </a>
 </div>

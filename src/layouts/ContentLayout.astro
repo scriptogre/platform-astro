@@ -1,22 +1,22 @@
 ---
-import Layout from "./Layout.astro";
+import Base from "./Base.astro";
 
 const { title } = Astro.props
 ---
-<Layout {title} isDrawerOpen={true}>
-    <div class="lg:ms-96">  <!-- Accounts for the drawer side's width -->
-        <article class="mx-auto max-w-2xl mt-8 lg:mt-16">
+<Base {title} drawerClasses="2xl:drawer-open [&_label[for*='drawer']]:2xl:hidden">
+    <article class="mx-auto max-w-2xl mt-8 lg:mt-16">
 
-            <div class="text-start">
-                <slot name="header" />
-            </div>
+        <div class="text-start">
+            <slot name="header" />
+        </div>
 
-            <hr class="my-8"/>
+        <hr class="my-8"/>
 
-            <div class="prose mx-auto max-w-full text-justify hyphens-auto text-base-content">
-                <slot name="content" />
-            </div>
+        <div class="prose mx-auto max-w-full text-justify hyphens-auto text-base-content">
+            <slot name="content">
+                <!-- Blog post or course lesson content goes here -->
+            </slot>
+        </div>
 
-        </article>
-    </div>
-</Layout>
+    </article>
+</Base>

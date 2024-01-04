@@ -4,9 +4,10 @@
 @tailwind utilities;
 
 @layer base {
-  main {
-    @apply container mx-auto px-12 mt-2 md:mt-4 lg:mt-6
+  body {
+    @apply bg-custom-gradient bg-fixed min-h-screen antialiased
   }
+
   hr, .prose:where(hr) {
     @apply border-base-100 !important
   }

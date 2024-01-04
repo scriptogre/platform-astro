@@ -16,7 +16,8 @@ import {Icon} from "astro-icon/components";
            if event.detail.pathInfo.responsePath is '/'
              set event.detail.shouldSwap to false
              reload() the location of the window
-           end">
+           end"
+        data-astro-reload>
 
     <input type="email" name="email" placeholder="Email address" autocomplete="email" maxlength="320" class="input input-bordered input-ghost w-full mb-4">
     <input type="password" name="password1" placeholder="Password" autocomplete="new-password" class="input input-bordered input-ghost w-full mb-4">
@@ -41,15 +42,15 @@ import {Icon} from "astro-icon/components";
 
     <div class="flex justify-center items-center gap-4">
       <button class="hover:text-gray-100" value="google" name="provider" type="submit">
-        <Icon name="ri:google-fill" class="w-6 h-6" />
+        <Icon name="ri:google-fill" class="size-6" />
       </button>
 
       <button class="hover:text-gray-100" value="discord" name="provider" type="submit">
-        <Icon name="ri:discord-fill" class="w-6 h-6" />
+        <Icon name="ri:discord-fill" class="size-6" />
       </button>
 
       <button class="hover:text-gray-100" value="github" name="provider" type="submit">
-        <Icon name="ri:github-fill" class="w-6 h-6" />
+        <Icon name="ri:github-fill" class="size-6" />
       </button>
     </div>
   </form>

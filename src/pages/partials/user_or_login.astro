@@ -1,0 +1,65 @@
+---
+import { supabase } from "../../lib/supabase";
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets'
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+let isLoggedIn = true;
+
+if (!accessToken || !refreshToken) {
+    isLoggedIn = false;
+}
+
+const { data, error } = await supabase.auth.setSession({
+    refresh_token: refreshToken?.value,
+    access_token: accessToken?.value,
+});
+
+if (error) {
+    cookies.delete("sb-access-token", {
+        path: "/",
+    });
+    cookies.delete("sb-refresh-token", {
+        path: "/",
+    });
+
+    isLoggedIn = false;
+}
+
+const avatar_url = data?.user?.user_metadata.avatar_url
+---
+{/* Dropdown - https://daisyui.com/components/dropdown/ */}
+
+{isLoggedIn ?
+    (
+    <details class="dropdown dropdown-bottom dropdown-end">
+
+        <summary class="btn btn-ghost btn-circle">
+            <Image src={avatar_url} alt="user avatar" width="40" height="40" class="rounded-full"/>
+        </summary>
+
+        <ul class="dropdown-content menu w-32 text-sm text-base-content bg-base-100/60 backdrop-blur border border-base-100 rounded-xl">
+            <li>
+                <a id="logout-button" class="font-semibold"
+                   href="/api/auth/signout">
+                    <Icon name="mdi:logout" class="size-6" />
+                    Logout
+                </a>
+            </li>
+        </ul>
+
+    </details>
+        )
+    :
+    (
+    <button id="login-button" class="btn btn-square btn-ghost"
+            hx-get="/signin" hx-target="body" hx-swap="beforeend"
+            title="Login">
+        <Icon name="mdi:login" class="size-6" />
+    </button>
+        )
+    }

@@ -33,7 +33,7 @@
     {#each latestUsers as user, index (user.id)}
         <div class="flex" class:invisible={!latestUsers} transition:fade={{ delay: index * 250, duration: 500 }}>
             <div class="avatar border-[3px] lg:border-[3px]">
-                <div class="w-8 h-8">
+                <div class="size-8">
                     {#if user.id && user.avatar_hash}
                         <img src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar_hash}.png`} alt="" class="m-0" />
                     {/if}
@@ -44,7 +44,7 @@
     {#key totalUserCount}
         <div class="flex" class:invisible={!totalUserCount} in:fade={{ delay: 750, duration: 500 }}>
             <div class="avatar border-[3px] lg:border-[3px] placeholder">
-                <div class="w-8 h-8 bg-neutral-focus text-neutral-content">
+                <div class="size-8 bg-neutral-focus text-neutral-content">
                     <span class="text-xs font-semibold">+{displayedCount}</span>
                 </div>
             </div>
