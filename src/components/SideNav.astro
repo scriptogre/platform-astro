@@ -5,6 +5,8 @@ import { convertToRoman } from "../utils";
 
 const { title = 'Course', class: classList, ...rest} = Astro.props;
 
+export const prerender = false
+
 // Fetch content collections
 let chapters = await getCollection('course_chapters');
 let lessons = await getCollection('course_lessons');
