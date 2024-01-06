@@ -25,7 +25,7 @@ let chaptersArray = chapters.map(chapter => {
 
 <nav id="side-nav" class={`${classList} side-nav min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`} {...rest}>
     <ul class="menu text-[1rem] space-y-2"
-        _="init add .active to <a[href*='${window.location.pathname}']/>">
+        _="init if window.location.pathname is not '/' add .active to <a[href*='${window.location.pathname}']/>">
 
         {/*
         Course Menu

@@ -27,7 +27,7 @@
     }
 
     .active::before {
-      @apply content-[url('/chevron-right.svg')] size-5
+      @apply content-[url('/chevron-right.svg')] size-5 animate-fade animate-ease-in-out
     }
   }
 }
