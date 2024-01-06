@@ -38,6 +38,7 @@ const isActive = (entry) => {
         return false;
     }
 }
+console.log('Current URL: ', Astro.url.pathname);
 ---
 
 <nav id="side-nav" class={`${classList} min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`} {...rest}>
