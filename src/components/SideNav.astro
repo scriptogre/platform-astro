@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { convertToRoman } from "../utils";
 
-const { title = 'Course', class: classList } = Astro.props;
+const { title = 'Course', class: classList, ...rest} = Astro.props;
 
 // Fetch content collections
 let chapters = await getCollection('course_chapters');
@@ -38,7 +38,7 @@ const isActive = (entry) => {
 }
 ---
 
-<nav id="side-nav" class={`${classList} min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`}>
+<nav id="side-nav" class={`${classList} min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`} {...rest}>
     <ul class="menu text-[1rem] space-y-2">
 
         {/*

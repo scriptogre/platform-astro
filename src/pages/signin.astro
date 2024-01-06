@@ -24,9 +24,9 @@ if (accessToken && refreshToken) {
   <form id="login-form"
         action="/api/auth/signin"
         method="post"
+        hx-boost="true"
         hx-target="body"
         hx-swap="beforeend"
-        hx-boost="false"
         _="on htmx:beforeSwap from body
            if event.detail.pathInfo.responsePath is '/'
              set event.detail.shouldSwap to false

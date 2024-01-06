@@ -33,7 +33,7 @@ This setup allows for a dynamic, self-managing modal suitable for various conten
     <slot />
   </div>
 
-  <form method="dialog" class="modal-backdrop">
+  <form method="dialog" hx-boost="false" class="modal-backdrop">
     <button>Close modal</button>
   </form>
 </dialog>

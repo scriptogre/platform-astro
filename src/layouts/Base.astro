@@ -22,8 +22,7 @@ const { title, drawerClasses } = Astro.props
     <script defer src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 </head>
 
-<body hx-boost="true" hx-target=".drawer" hx-select=".drawer" hx-swap="outerHTML"
-      _="on mutation if <dialog.modal/>'s length is greater than 1 remove first from <dialog.modal/>">
+<body _="on mutation if <dialog.modal/>'s length is greater than 1 remove first from <dialog.modal/>">
 
 {/* Drawer - https://daisyui.com/components/drawer/ */}
 <div class:list={['drawer', drawerClasses]}>
@@ -31,7 +30,11 @@ const { title, drawerClasses } = Astro.props
 
     <div class="drawer-side lg:max-w-fit !fixed z-10">
         <label for="drawer-toggle" aria-label="close sidebar" class="drawer-overlay lg:hidden"></label>
-        <SideNav class="p-2 mt-16" />
+        <SideNav class="p-2 mt-16"
+                 hx-boost="true"
+                 hx-target=".drawer"
+                 hx-select=".drawer"
+                 hx-swap="outerHTML"/>
     </div>
 
 

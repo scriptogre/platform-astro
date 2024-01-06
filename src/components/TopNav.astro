@@ -20,6 +20,10 @@ const { class: classList, ...rest } = Astro.props
         </label>
 
         <a href="/"
+           hx-boost="true"
+           hx-target=".drawer"
+           hx-select=".drawer"
+           hx-swap="outerHTML"
            class="btn btn-ghost lowercase text-lg font-bold">
             ~/pyoneers.dev/
         </a>
@@ -37,9 +41,7 @@ const { class: classList, ...rest } = Astro.props
             <DiscordLogo class="size-9" />
         </a>
 
-        {/* Disinherit hx attributes from <body> */}
-        <div hx-disinherit="hx-select hx-target hx-swap"
-             class="w-[48px]">
+        <div class="w-[48px]">
             {/*
             Hydrates upon page load.
             Retrieves user or login button depending on auth state.
