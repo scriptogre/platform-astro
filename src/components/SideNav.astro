@@ -21,31 +21,17 @@ let chaptersArray = chapters.map(chapter => {
         lessons: lessons.filter(lesson => lesson.data.chapter.id === chapter.id)
     }
 });
-
-
-const isCoursePage = Astro.url.pathname.startsWith('/course');
-const isBlogPage = Astro.url.pathname.startsWith('/blogs');
-const isIndexPage = Astro.url.pathname == '/';
-
-const isActive = (entry) => {
-    if (isCoursePage) {
-        return Astro.url.pathname == `/course/${entry.slug}`;
-    } else if (isBlogPage) {
-        return Astro.url.pathname == `/blogs/${entry.slug}`;
-    } else {
-        return false;
-    }
-}
 ---
 
 <nav id="side-nav" class={`${classList} side-nav min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`} {...rest}>
-    <ul class="menu text-[1rem] space-y-2">
+    <ul class="menu text-[1rem] space-y-2"
+        _="init add .active to <a[href*='${window.location.pathname}']/>">
 
         {/*
         Course Menu
         */}
         <li>
-            <details id="course-navigation" open={isCoursePage || isIndexPage}>
+            <details id="course-navigation" open>
                 <summary class="font-bold">
                     <Icon name="ri:graduation-cap-fill" class="size-5 text-warning" />
                     Course
@@ -62,12 +48,7 @@ const isActive = (entry) => {
                                             return (
                                                     <li title={lesson.data.title}>
                                                         {/* Bold and highlight active lesson */}
-                                                        <a href={`/course/${lesson.slug}`}
-                                                           _="init if my @href == window.location.pathname add .active">
-
-                                                            <Icon name="mdi:chevron-right" class="size-5 hidden"
-                                                                  _="init if (@href of closest <a/>) == window.location.pathname remove .hidden" />
-
+                                                        <a href={`/course/${lesson.slug}`}>
                                                             <span class="text-ellipsis overflow-hidden">
                                                                 {lesson.data.index}. {lesson.data.title}
                                                             </span>
@@ -87,7 +68,7 @@ const isActive = (entry) => {
         Blog Menu
         */}
         <li>
-            <details id="blog-navigation" open={isBlogPage || isIndexPage}>
+            <details id="blog-navigation" open>
                 <summary class="font-bold">
                     <Icon name="ri:file-text-fill" class="size-5 text-orange-600" />
                     Blogs
@@ -96,12 +77,7 @@ const isActive = (entry) => {
                     {blogs.map(blog => {
                         return (
                                 <li title={blog.data.title}>
-                                    <a href={`/blogs/${blog.slug}`}
-                                       class={`${isActive(blog) && 'font-bold bg-base-content/10'}`}
-                                       _="init if my @href == window.location.pathname add .active">
-                                        {/* Include a right arrow icon if lesson is active */}
-                                        {isActive(blog) && <Icon name="mdi:chevron-right" class="size-5"/>}
-
+                                    <a href={`/blogs/${blog.slug}`}>
                                         <span class="text-ellipsis overflow-hidden">
                                             {blog.data.title}
                                         </span>

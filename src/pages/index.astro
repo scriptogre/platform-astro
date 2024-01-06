@@ -5,7 +5,7 @@ import Hero from '../components/home/Hero.astro';
 import NewsTag from "../components/home/NewsTag.astro";
 import BouncingAlert from "../components/home/BouncingAlert.astro";
 import Announcement from "../components/home/Announcement.astro";
-import Chat from "../components/chat/Chat.astro";
+import ChatBox from "../components/chat/ChatBox.astro";
 import ChatMessage from "../components/chat/ChatMessage.astro";
 import Excuses from "../components/chat/Excuses.svelte";
 
@@ -25,10 +25,10 @@ const firstLesson = await getFirstLesson();
           additionalText="You won't get these tips from ChatGPT" />
 
     <div id="chat-section" class="flex flex-col justify-center items-start p-6" >
-      <Chat id="chat-container">
+      <ChatBox id="chat-container">
         <ChatMessage sender="gpt" text="Hey chief. I'm here to help you become a 10x engineer."/>
         <ChatMessage sender="user" text="I'm not ready to become a 10x engineer..."/>
-      </Chat>
+      </ChatBox>
 
       <Excuses chatSelector="#chat-container" buttons={[
         { label: "💰 No Money", message: "I'm not sure if I can afford it." },
