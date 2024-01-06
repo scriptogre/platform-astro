@@ -1,6 +1,6 @@
 import {defineConfig, passthroughImageService} from 'astro/config';
 
-import vercel from '@astrojs/vercel/serverless';
+import vercel from "@astrojs/vercel/serverless";
 import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
 import icon from "astro-icon";
