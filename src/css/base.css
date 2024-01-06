@@ -25,9 +25,8 @@
     .active {
       @apply font-bold bg-base-content/10
     }
-
     .active::before {
-      @apply content-[url('/chevron-right.svg')] size-5 animate-fade animate-ease-in-out
+      @apply content-[url('/chevron-right.svg')] size-5
     }
   }
 }
