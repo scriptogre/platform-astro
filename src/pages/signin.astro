@@ -21,17 +21,7 @@ if (accessToken && refreshToken) {
     Sign in to your account
   </h3>
 
-  <form id="login-form"
-        action="/api/auth/signin"
-        method="post"
-        hx-boost="true"
-        hx-target="body"
-        hx-swap="beforeend"
-        _="on htmx:beforeSwap from body
-           if event.detail.pathInfo.responsePath is '/'
-             set event.detail.shouldSwap to false
-             reload() the location of the window
-           end">
+  <form id="login-form" action="/api/auth/signin" method="POST">
 
     <input type="email" name="login" placeholder="Email address" autocomplete="email" maxlength="320" class="input input-bordered input-ghost w-full mb-4">
     <input type="password" name="password" placeholder="Password" autocomplete="current-password" class="input input-bordered input-ghost w-full mb-4">
