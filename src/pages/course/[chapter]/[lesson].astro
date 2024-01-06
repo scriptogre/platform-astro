@@ -54,7 +54,7 @@ const { Content } = await lesson.render();
             ) : ""
         }
 
-        <div class="not-prose">
+        <div class="not-prose" hx-boost="true">
             <NavigationArrows lesson={lesson} />
         </div>
     </div>
