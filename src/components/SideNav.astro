@@ -5,8 +5,6 @@ import { convertToRoman } from "../utils";
 
 const { title = 'Course', class: classList, ...rest} = Astro.props;
 
-export const prerender = false
-
 // Fetch content collections
 let chapters = await getCollection('course_chapters');
 let lessons = await getCollection('course_lessons');
@@ -38,10 +36,9 @@ const isActive = (entry) => {
         return false;
     }
 }
-console.log('Current URL: ', Astro.url.pathname);
 ---
 
-<nav id="side-nav" class={`${classList} min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`} {...rest}>
+<nav id="side-nav" class={`${classList} side-nav min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`} {...rest}>
     <ul class="menu text-[1rem] space-y-2">
 
         {/*
@@ -66,10 +63,10 @@ console.log('Current URL: ', Astro.url.pathname);
                                                     <li title={lesson.data.title}>
                                                         {/* Bold and highlight active lesson */}
                                                         <a href={`/course/${lesson.slug}`}
-                                                           class={`${isActive(lesson) && 'font-bold bg-base-content/10'}`}>
+                                                           _="init if my @href == window.location.pathname add .active">
 
-                                                            {/* Include a right arrow icon if lesson is active */}
-                                                            {isActive(lesson) && <Icon name="mdi:chevron-right" class="size-5" />}
+                                                            <Icon name="mdi:chevron-right" class="size-5 hidden"
+                                                                  _="init if (@href of closest <a/>) == window.location.pathname remove .hidden" />
 
                                                             <span class="text-ellipsis overflow-hidden">
                                                                 {lesson.data.index}. {lesson.data.title}
@@ -100,7 +97,8 @@ console.log('Current URL: ', Astro.url.pathname);
                         return (
                                 <li title={blog.data.title}>
                                     <a href={`/blogs/${blog.slug}`}
-                                       class={`${isActive(blog) && 'font-bold bg-base-content/10'}`}>
+                                       class={`${isActive(blog) && 'font-bold bg-base-content/10'}`}
+                                       _="init if my @href == window.location.pathname add .active">
                                         {/* Include a right arrow icon if lesson is active */}
                                         {isActive(blog) && <Icon name="mdi:chevron-right" class="size-5"/>}
 
