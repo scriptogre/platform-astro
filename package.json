@@ -24,6 +24,7 @@
     "@iconify-json/solar": "^1.1.9",
     "@supabase/supabase-js": "^2.39.2",
     "astro": "4.0.2",
+    "astro-compress": "^2.2.7",
     "astro-icon": "^1.0.2",
     "canvas-confetti": "^1.9.2",
     "node-cache": "^5.1.2",

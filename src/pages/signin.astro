@@ -23,7 +23,7 @@ if (accessToken && refreshToken) {
 
   <form id="login-form" action="/api/auth/signin" method="POST">
 
-    <input type="email" name="login" placeholder="Email address" autocomplete="email" maxlength="320" class="input input-bordered input-ghost w-full mb-4">
+    <input type="email" name="email" placeholder="Email address" autocomplete="email" maxlength="320" class="input input-bordered input-ghost w-full mb-4">
     <input type="password" name="password" placeholder="Password" autocomplete="current-password" class="input input-bordered input-ghost w-full mb-4">
 
     <div class="flex justify-between align-middle mb-4">
@@ -40,7 +40,7 @@ if (accessToken && refreshToken) {
       </a>
     </div>
 
-    <button id="login-button" class="btn btn-warning w-full mb-4">
+    <button id="login-button" type="submit" class="btn btn-warning w-full mb-4">
       Login
     </button>
 

@@ -39,7 +39,9 @@ const avatar_url = data?.user?.user_metadata.avatar_url
     <details class="dropdown dropdown-bottom dropdown-end">
 
         <summary class="btn btn-ghost btn-circle">
-            <Image src={avatar_url} alt="user avatar" width="40" height="40" class="rounded-full"/>
+            <span class="avatar size-10">
+                <Image src={avatar_url || '/avatar-default.webp'} alt="user avatar" width="40" height="40" class="rounded-full"/>
+            </span>
         </summary>
 
         <ul class="dropdown-content menu w-32 text-sm text-base-content bg-base-100/60 backdrop-blur border border-base-100 rounded-xl">
