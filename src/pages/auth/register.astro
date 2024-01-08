@@ -1,5 +1,5 @@
 ---
-import Modal from "../components/Modal.astro";
+import Modal from "../../components/Modal.astro";
 import {Icon} from "astro-icon/components";
 ---
 
@@ -22,7 +22,7 @@ import {Icon} from "astro-icon/components";
     <span class="text-sm text-center font-light text-warning-600 dark:text-primary-500">
       Already have an account?
       <a id="sign-up-link"
-         hx-get="/signin"
+         hx-get="/auth/signin"
          hx-target="body"
          hx-swap="beforeend"
          class="font-medium text-primary-content hover:underline hover:cursor-pointer">

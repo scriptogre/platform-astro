@@ -5,9 +5,7 @@ import Hero from '../components/home/Hero.astro';
 import NewsTag from "../components/home/NewsTag.astro";
 import BouncingAlert from "../components/home/BouncingAlert.astro";
 import Announcement from "../components/home/Announcement.astro";
-import ChatBox from "../components/chat/ChatBox.astro";
-import ChatMessage from "../components/chat/ChatMessage.astro";
-import Excuses from "../components/chat/Excuses.svelte";
+import Chat from "../components/chat/Chat.svelte";
 
 import { getFirstLesson } from "../utils.ts";
 const firstLesson = await getFirstLesson();
@@ -18,27 +16,44 @@ const firstLesson = await getFirstLesson();
     <NewsTag href={`/course/${firstLesson.slug}`} message="The first module is here!  🎉"/>
   </div>
 
-  <div class="flex flex-col lg:flex-row items-center justify-center">
+  <div class="flex flex-col lg:flex-row items-center justify-center mb-20 xl:mb-32">
     <Hero mainTitle="The Pyoneer Project"
           subTitle="For the ambitious, by the ambitious"
           description="Learn Full-Stack Engineering the way I wish I had."
           additionalText="You won't get these tips from ChatGPT" />
 
-    <div id="chat-section" class="flex flex-col justify-center items-start p-6" >
-      <ChatBox id="chat-container">
-        <ChatMessage sender="gpt" text="Hey chief. I'm here to help you become a 10x engineer."/>
-        <ChatMessage sender="user" text="I'm not ready to become a 10x engineer..."/>
-      </ChatBox>
+    <div id="chat-section" class="flex flex-col justify-center items-start lg:mt-12 max-w-xl">
+      <Chat client:load />
 
-      <Excuses chatSelector="#chat-container" buttons={[
-        { label: "💰 No Money", message: "I'm not sure if I can afford it." },
-        { label: "🕐 No Time", message: "I don't think I'll have the time."},
-        { label: "🚫 No Talent", message: "I was not made to be a programmer."}
-      ]} client:load />
+      <!--<ChatBox id="chat-container" class="mb-3">-->
+
+      <!--  <ChatMessage sender="assistant" text="Hey chief. I'm here to help you become a 10x engineer."/>-->
+
+      <!--  <ChatMessage sender="user" text="I'm not ready to become a 10x engineer..."/>-->
+
+      <!--  <ChatMessage sender="assistant" id="typing-indicator" class="order-last htmx-indicator">-->
+      <!--    <span class="loading loading-dots loading-sm"></span>-->
+      <!--  </ChatMessage>-->
+
+      <!--  <button class="btn btn-ghost"-->
+      <!--          hx-post="/htmx_partials/chat/user"-->
+      <!--          hx-target="#chat-container"-->
+      <!--          hx-swap="beforeend"-->
+      <!--          hx-indicator="#typing-indicator">-->
+      <!--    No Money-->
+      <!--  </button>-->
+      <!--</ChatBox>-->
+
+      <!--<ChatButtons chatSelector="#chat-container" buttons={[-->
+      <!--  { label: "💰 No Money", message: "I'm not sure if I can afford it." },-->
+      <!--  { label: "🕐 No Time", message: "I don't think I'll have the time."},-->
+      <!--  { label: "🚫 No Talent", message: "I was not made to be a programmer."}-->
+      <!--]} client:load />-->
     </div>
+
   </div>
 
-  <div class="flex flex-col justify-center items-center mt-20 xl:mt-32">
+  <div class="flex flex-col justify-center items-center">
     <BouncingAlert href="#news-section" message="Huge news! 🙏" />
   </div>
 

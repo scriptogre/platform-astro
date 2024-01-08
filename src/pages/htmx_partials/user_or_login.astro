@@ -44,12 +44,24 @@ const avatar_url = data?.user?.user_metadata.avatar_url
             </span>
         </summary>
 
-        <ul class="dropdown-content menu w-32 text-sm text-base-content bg-base-100/60 backdrop-blur border border-base-100 rounded-xl">
+        <ul class="dropdown-content menu text-sm text-base-content font-semibold bg-base-100/60 backdrop-blur border border-base-100 rounded-xl">
+            <li class="menu-title">
+                <span class="text-sm font-semibold text-base-content/80">
+                    {data?.user?.email}
+                </span>
+            </li>
             <li>
-                <a id="logout-button" class="font-semibold"
+                <a id="logout-button"
                    href="/api/auth/signout">
                     <Icon name="mdi:logout" class="size-6" />
                     Logout
+                </a>
+            </li>
+            <li>
+                <a id="delete-account-button" class="text-red-500 whitespace-nowrap"
+                   href="/api/auth/delete-account">
+                    <Icon name="mdi:account-remove" class="size-6" />
+                    Remove Account
                 </a>
             </li>
         </ul>
@@ -59,7 +71,7 @@ const avatar_url = data?.user?.user_metadata.avatar_url
     :
     (
     <button id="login-button" class="btn btn-square btn-ghost"
-            hx-get="/signin" hx-target="body" hx-swap="beforeend"
+            hx-get="/auth/signin" hx-target="body" hx-swap="beforeend"
             title="Login">
         <Icon name="mdi:login" class="size-6" />
     </button>

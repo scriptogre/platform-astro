@@ -5,11 +5,11 @@ const { class: className } = Astro.props
 ---
 <footer class={`${className} container mx-auto text-base-content text-center`}>
     <div class="flex justify-center items-center p-2 space-x-4">
-        <a href="https://github.com/scriptogre" target="_blank" class="hover:text-gray-100">
+        <a href="https://github.com/scriptogre" target="_blank" class="hover:text-gray-100" aria-label="Github">
             <Icon name="ri:github-fill" class="size-6"/>
         </a>
 
-        <a href="https://www.linkedin.com/in/christian-tanul-94333a17a/" target="_blank" class="hover:text-gray-100">
+        <a href="https://www.linkedin.com/in/christian-tanul-94333a17a/" target="_blank" class="hover:text-gray-100" aria-label="LinkedIn">
             <i class="w-5">
                 <Icon name="ri:linkedin-fill" class="size-6"/>
             </i>

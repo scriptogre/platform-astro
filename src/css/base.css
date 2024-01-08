@@ -29,6 +29,17 @@
       @apply content-[url('/chevron-right.svg')] size-5
     }
   }
+
+    .htmx-indicator{
+        opacity:0;
+        transition: opacity 500ms ease-in;
+    }
+    .htmx-request .htmx-indicator{
+        opacity:1
+    }
+    .htmx-request.htmx-indicator{
+        opacity:1
+    }
 }
 
 @layer utilities {

@@ -1,6 +1,7 @@
 ---
 import DiscordLogo from "./discord/DiscordLogo.astro";
 import {Icon} from "astro-icon/components";
+import UserOrLogin from "./UserOrLogin.svelte";
 
 const { class: classList, ...rest } = Astro.props
 ---
@@ -40,9 +41,10 @@ const { class: classList, ...rest } = Astro.props
             {/*
             Hydrates upon page load.
             Retrieves user or login button depending on auth state.
-            See `src/pages/partials/user_or_login.astro`
+            See `src/pages/htmx_partials/user_or_login.astro`
             */}
-            <span hx-get="/partials/user_or_login" hx-trigger="load"></span>
+            <!--<span hx-get="/htmx_partials/user_or_login" hx-trigger="load"></span>-->
+            <UserOrLogin client:load />
         </div>
 
     </div>

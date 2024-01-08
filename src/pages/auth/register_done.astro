@@ -1,6 +1,5 @@
 ---
-import Modal from "../components/Modal.astro";
-import {Icon} from "astro-icon/components";
+import Modal from "../../components/Modal.astro";
 ---
 
 <Modal>
@@ -15,7 +14,7 @@ import {Icon} from "astro-icon/components";
         <p class="text-sm font-light">
             Proceed to the sign in page:
             <a id="back-to-login-link"
-               hx-get="/signin"
+               hx-get="/auth/signin"
                hx-target="body"
                hx-swap="beforeend"
                class="font-medium text-primary-content hover:underline hover:cursor-pointer">

@@ -15,7 +15,7 @@ export default defineConfig({
     icon({
       include: {
         ri: ['visa-line', 'graduation-cap-fill', 'file-text-fill', 'github-fill', 'linkedin-fill', 'discord-fill', 'google-fill'],
-        mdi: ['login', 'logout', 'chevron-right'],
+        mdi: ['login', 'logout', 'chevron-right', 'account-remove'],
         solar: ['arrow-left-outline', 'arrow-right-outline', 'alt-arrow-left-outline', 'alt-arrow-right-outline', 'hamburger-menu-outline'],
         ion: ['close']
       }

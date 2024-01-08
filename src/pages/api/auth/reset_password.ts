@@ -19,5 +19,5 @@ export const POST: APIRoute = async ({ request, redirect }) => {
         return new Response(error.message, { status: 500 });
     }
 
-    return redirect("/reset_password_done");
+    return redirect("/auth/reset_password_done");
 }
