@@ -26,5 +26,6 @@ export default defineConfig({
   adapter: vercel(),
   image: {
     service: passthroughImageService()
-  }
+  },
+  trailingSlash: "always",
 });

@@ -1,7 +1,9 @@
 ---
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../lib/supabase";
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets'
+
+export const prerender = false
 
 const { cookies, redirect } = Astro;
 
@@ -9,6 +11,9 @@ const accessToken = cookies.get("sb-access-token");
 const refreshToken = cookies.get("sb-refresh-token");
 
 let isLoggedIn = true;
+
+console.log("accessToken", accessToken);
+console.log("refreshToken", refreshToken);
 
 if (!accessToken || !refreshToken) {
     isLoggedIn = false;
@@ -45,23 +50,11 @@ const avatar_url = data?.user?.user_metadata.avatar_url
         </summary>
 
         <ul class="dropdown-content menu text-sm text-base-content font-semibold bg-base-100/60 backdrop-blur border border-base-100 rounded-xl">
-            <li class="menu-title">
-                <span class="text-sm font-semibold text-base-content/80">
-                    {data?.user?.email}
-                </span>
-            </li>
             <li>
                 <a id="logout-button"
-                   href="/api/auth/signout">
+                   href="/api/auth/signout/">
                     <Icon name="mdi:logout" class="size-6" />
                     Logout
-                </a>
-            </li>
-            <li>
-                <a id="delete-account-button" class="text-red-500 whitespace-nowrap"
-                   href="/api/auth/delete-account">
-                    <Icon name="mdi:account-remove" class="size-6" />
-                    Remove Account
                 </a>
             </li>
         </ul>

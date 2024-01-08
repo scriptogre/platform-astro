@@ -1,0 +1,12 @@
+---
+import DiscordLogo from "./Logo.astro";
+
+const { href } = Astro.props;
+---
+<a id="discord-invite-link"
+   {href}
+   title="Join the Discord server"
+   class="btn btn-square btn-ghost hover:bg-[#3a45b7] hover:text-white discord-logo-container"
+   target="_blank">
+    <DiscordLogo class="size-9" />
+</a>

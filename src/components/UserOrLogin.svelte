@@ -1,6 +1,13 @@
 <script>
     import { onMount } from 'svelte';
 
+    import { createClient } from '@supabase/supabase-js'
+
+    const supabase = createClient(
+        import.meta.env.SUPABASE_URL,
+        import.meta.env.SUPABASE_ANON_KEY
+    )
+
     let isLoggedIn = true;
     let avatar_url;
     let email;
@@ -10,7 +17,6 @@
         const refreshToken = localStorage.getItem("sb-refresh-token");
 
         console.log(accessToken, refreshToken);
-
         if (!accessToken || !refreshToken) {
             isLoggedIn = false;
         }
@@ -47,13 +53,7 @@
                     Logout
                 </a>
             </li>
-            <li>
-                <a id="delete-account-button" class="text-red-500 whitespace-nowrap" href="/api/auth/delete-account">
-
-                    Remove Account
-                </a>
-            </li>
-        </ul>
+        </ul>e
     </details>
 {:else}
     <button id="login-button" class="btn btn-square btn-ghost" title="Login">

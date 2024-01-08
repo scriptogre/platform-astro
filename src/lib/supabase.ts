@@ -5,7 +5,9 @@ export const supabase = createClient(
     import.meta.env.SUPABASE_ANON_KEY,
     {
         auth: {
-            flowType: "pkce",
-        },
+            autoRefreshToken: false,
+            persistSession: false,
+            detectSessionInUrl: false
+        }
     },
 );

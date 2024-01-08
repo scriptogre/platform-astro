@@ -11,8 +11,8 @@ const nextLesson= await getNextLesson(lesson);
 const chapterOfPreviousLesson = previousLesson && (await getEntry(previousLesson.data.chapter))
 const chapterOfNextLesson = nextLesson && (await getEntry(nextLesson.data.chapter))
 
-const previousLessonUrl = previousLesson && `/course/${previousLesson.slug}`;
-const nextLessonUrl = nextLesson && `/course/${nextLesson.slug}`;
+const previousLessonUrl = previousLesson && `/course/${previousLesson.slug}/`;
+const nextLessonUrl = nextLesson && `/course/${nextLesson.slug}/`;
 ---
 <div id="desktop-navigation-arrows" class:list={[classList, 'hidden lg:flex mt-12 items-center space-x-4 justify-between', {'!justify-start': previousLesson && !nextLesson}, {'!justify-end': !previousLesson && nextLesson}]}>
     {!!previousLesson &&

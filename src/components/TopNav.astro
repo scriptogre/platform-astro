@@ -1,12 +1,12 @@
 ---
-import DiscordLogo from "./discord/DiscordLogo.astro";
-import {Icon} from "astro-icon/components";
+import DiscordJoinButton from "./discord/JoinButton.astro";
 import UserOrLogin from "./UserOrLogin.svelte";
+import HamburgerButton from "./HamburgerButton.astro";
+import LogoText from "./LogoText.astro";
 
 const { class: classList, ...rest } = Astro.props
 ---
-<nav id="top-nav"
-     class:list={[
+<nav id="top-nav" class:list={[
          classList,
          "no-animation sticky navbar top-0 z-30 bg-custom-gradient bg-opacity-90 bg-fixed backdrop-blur border-b border-base-100"
      ]}
@@ -14,38 +14,17 @@ const { class: classList, ...rest } = Astro.props
 
     <div class="navbar-start xs:space-x-2">
 
-        <label for="drawer-toggle"
-               class="btn btn-square btn-ghost swap swap-rotate">
-            <Icon name="solar:hamburger-menu-outline" class="swap-off size-8" />
-            <Icon name="ion:close" class="swap-on size-8" />
-        </label>
+        <HamburgerButton for="drawer-toggle" />
 
-        <a href="/" class="btn btn-ghost lowercase text-lg font-bold">
-            ~/pyoneers.dev/
-        </a>
+        <LogoText href="/" />
 
     </div>
 
-
     <div class="navbar-end xs:space-x-2">
 
-        <a id="discord-invite-link"
-           title="Join the Discord server"
-           class="btn btn-square btn-ghost hover:bg-[#3a45b7] hover:text-white discord-logo-container"
-           href="https://discord.gg/TSMacaF9SG"
-           target="_blank">
-            <DiscordLogo class="size-9" />
-        </a>
+        <DiscordJoinButton href="https://discord.gg/TSMacaF9SG" />
 
-        <div class="w-[48px]">
-            {/*
-            Hydrates upon page load.
-            Retrieves user or login button depending on auth state.
-            See `src/pages/htmx_partials/user_or_login.astro`
-            */}
-            <!--<span hx-get="/htmx_partials/user_or_login" hx-trigger="load"></span>-->
-            <UserOrLogin client:load />
-        </div>
+        <UserOrLogin client:load />
 
     </div>
 </nav>
