@@ -2,11 +2,14 @@
 import {getCollection} from "astro:content";
 import ContentLayout from "../../layouts/ContentLayout.astro";
 
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
+
 export async function getStaticPaths({ paginate }) {
-    // Fetch all lessons including meta.md files
     const blogs = await getCollection('blogs');
 
-    // Generate paths for each lesson
     return blogs.map(blog => {
         return {
             params: { blog: blog.slug },
@@ -16,12 +19,20 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { blog } = Astro.props;
-const { Content } = await blog.render();
+const { Content: BlogContent, remarkPluginFrontmatter } = await blog.render();
+
+const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
+  .utc()
+  .format("HH:mm:ss DD MMMM YYYY UTC");
+
+console.log(lastModified)
+
+let blogTitle = blog.data.title;
 ---
-<ContentLayout title={`${blog.data.title}`}>
+<ContentLayout title={`${blogTitle}`}>
     <h1 slot="header" class="text-4xl mt-4">
-        {blog.data.title}
+        {blogTitle}
     </h1>
 
-    <Content slot="content" />
+    <BlogContent slot="content" />
 </ContentLayout>

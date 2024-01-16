@@ -4,6 +4,7 @@ import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
 import icon from "astro-icon";
 import compress from "astro-compress";
+import {remarkModifiedTime} from "./remark-modified-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,7 +21,7 @@ export default defineConfig({
         ion: ['close']
       }
     }),
-    compress()
+    compress(),
   ],
   output: "hybrid",
   adapter: vercel(),
@@ -28,4 +29,7 @@ export default defineConfig({
     service: passthroughImageService()
   },
   trailingSlash: "always",
+  markdown: {
+    remarkPlugins: [remarkModifiedTime],
+  },
 });

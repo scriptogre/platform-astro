@@ -7,17 +7,6 @@
   body {
     @apply bg-custom-gradient bg-fixed min-h-screen antialiased
   }
-
-  hr, .prose:where(hr) {
-    @apply border-base-100 !important
-  }
-  .prose img {
-    @apply rounded-3xl
-  }
-  /* Overrides DaisyUI's default behavior of showing everything inside navbars, including scripts and styles */
-  .navbar > script, .navbar > style {
-    @apply hidden
-  }
 }
 
 @layer components {
@@ -29,17 +18,6 @@
       @apply content-[url('/chevron-right.svg')] size-5
     }
   }
-
-    .htmx-indicator{
-        opacity:0;
-        transition: opacity 500ms ease-in;
-    }
-    .htmx-request .htmx-indicator{
-        opacity:1
-    }
-    .htmx-request.htmx-indicator{
-        opacity:1
-    }
 }
 
 @layer utilities {

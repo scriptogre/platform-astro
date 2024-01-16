@@ -1,25 +1,45 @@
-import { Redis } from "@upstash/redis";
 import OpenAI from "openai";
-import {supabase} from "../../../lib/supabase.ts";
 
-export async function POST({ request } ) {
+// https://docs.astro.build/en/reference/api-reference/
+// Create a POST endpoint for generating GPT's answer
+export async function POST({ request, context } ) {
 
+    // https://docs.astro.build/en/guides/environment-variables/
+    // Create a new OpenAI instance. Requires the `OPENAI_API_KEY` env variable to be set.
     const openai = new OpenAI({ apiKey: import.meta.env.OPENAI_API_KEY })
 
-    const url = import.meta.env.UPSTASH_REDIS_REST_URL;
-    const token = import.meta.env.UPSTASH_REDIS_REST_TOKEN;
-    const redis = new Redis({ url, token });
+    // Set the system prompt. Can be kept in a separate file for better organization.
+    let systemPrompt = `You are a helpful assistant.`
+
+    // Store and get the `chatHistory` for session using your method of choice ( Upstash / Redis / cookies (not recommended) / ... )
+    // let chatHistory = await redis/request.cookies.get("chat-history")
+
+    // Ensure the chat history doesn't contain more than X messages (to prevent burning too many tokens)
+
+    // Sanitize the user input to prevent prompt injection
+
+    // Add the user input to the chat history
+
+    // Generate a response using OpenAI API
+    const response = await openai.chat.completions.create({
+        messages: [
+            { role: "system", content: systemPrompt },
+            { role: "assistant", content: "Hey chief. I'm here to help you become a 10x engineer." },
+            { role: "user", content: "I'm not ready to become a 10x engineer..." },
+            // ...chatHistory - Include the rest of the chat history here
+        ],
+        model: "ft:gpt-3.5-turbo-0613:personal::7teyZSgg",
+        max_tokens: 125,
+    })
 
     return new Response(
-        JSON.stringify({answer: 'test'})
+        JSON.stringify({
+            answer: response.choices[0].message.content
+        })
     )
 }
 
 // try {
-//         const openai = new OpenAI({ apiKey: import.meta.env.OPENAI_API_KEY })
-//
-//         let isUserInputAllowed = allowedUserInputs.includes(query)
-//         let finalUserInput = isUserInputAllowed ? query : 'I\'m shamelessly attempting to prompt inject a Giga Chad'
 //         let systemPrompt = isUserInputAllowed ? baseSystemPrompt : baseSystemPrompt + `
 // If the user says he's trying to prompt inject, provide a funny answer, encouraging him to always think outside the box.
 // Tell him that he'd be a great developer if he keeps thinking like that.

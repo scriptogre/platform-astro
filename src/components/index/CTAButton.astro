@@ -1,0 +1,8 @@
+---
+const { label, class: classList } = Astro.props;
+---
+<button id="cta-button" class:list={[classList, "rounded-md bg-black"]}>
+  <span class="block text-black bg-amber-400 -translate-x-2 -translate-y-2 rounded-md border-2 border-black p-4 text-xl transition-all hover:-translate-y-3 active:translate-x-0 active:translate-y-0">
+    {label}
+  </span>
+</button>

@@ -1,66 +1,70 @@
 ---
-import Layout from '../layouts/Base.astro';
+import Layout from '../layouts/Layout.astro';
+import pythonLogo from '../images/logo.webp';
 
-import Hero from '../components/home/Hero.astro';
-import NewsTag from "../components/home/NewsTag.astro";
-import BouncingAlert from "../components/home/BouncingAlert.astro";
-import Announcement from "../components/home/Announcement.astro";
+import NewsTag from "../components/index/NewsTag.astro";
+import BouncingAlert from "../components/index/BouncingAlert.astro";
+import Announcement from "../components/index/Announcement.astro";
 import Chat from "../components/chat/Chat.svelte";
+import CTAButton from "../components/index/CTAButton.astro";
+import LogoHeader from "../components/index/LogoHeader.astro";
 
-import { getFirstLesson } from "../utils.ts";
-const firstLesson = await getFirstLesson();
 ---
 
 <Layout title="Your Path To Full Stack Python">
-  <div class="flex items-center justify-center mt-8 sm:mt-16 md:mt-20 lg:mt-24 xl:mt-28">
-    <NewsTag href={`/course/${firstLesson.slug}/`} message="The first module is here!  🎉"/>
+
+  <div class="flex items-center justify-center mt-20 xl:mt-24">
+
+    <NewsTag href={`/blogs/welcome_to_my_blog/`} message="Check out the latest blog!  🎉"/>
+
   </div>
 
-  <div class="flex flex-col lg:flex-row items-center justify-center mb-20 xl:mb-32">
-    <Hero mainTitle="The Pyoneer Project"
-          subTitle="For the ambitious, by the ambitious"
-          description="Learn Full-Stack Engineering the way I wish I had."
-          additionalText="You won't get these tips from ChatGPT" />
 
-    <div id="chat-section" class="flex flex-col justify-center items-start lg:mt-12 max-w-xl">
+  <div class="flex flex-col lg:flex-row items-center max-w-screen-xl mx-auto my-12">
+
+    <div class="flex flex-grow flex-col justify-center items-center min-h-fit my-12 xl:my-16 lg:px-4">
+
+      <LogoHeader title="The Pyoneer Project"
+                  tagline="For the ambitious, by the ambitious"
+                  logoImage={pythonLogo}
+                  logoAlt="Python Logo"
+                  class="mb-6 lg:mb-8" />
+
+      <p class="text-xl xl:text-2xl text-gray-300 text-center mb-6 lg:mb-8 max-w-[320px] sm:max-w-none">
+        Learn Full-Stack Python the way I wish I had.
+      </p>
+
+      <span class="mb-6">
+        You won't get these tips from ChatGPT
+      </span>
+
+      <CTAButton label="Press to Enroll Now" class="mb-3" />
+
+    </div>
+
+    <div class="flex flex-col justify-center items-center my-12 xl:my-16 lg:px-4">
+
       <Chat client:load />
 
-      <!--<ChatBox id="chat-container" class="mb-3">-->
-
-      <!--  <ChatMessage sender="assistant" text="Hey chief. I'm here to help you become a 10x engineer."/>-->
-
-      <!--  <ChatMessage sender="user" text="I'm not ready to become a 10x engineer..."/>-->
-
-      <!--  <ChatMessage sender="assistant" id="typing-indicator" class="order-last htmx-indicator">-->
-      <!--    <span class="loading loading-dots loading-sm"></span>-->
-      <!--  </ChatMessage>-->
-
-      <!--  <button class="btn btn-ghost"-->
-      <!--          hx-post="/htmx_partials/chat/user"-->
-      <!--          hx-target="#chat-container"-->
-      <!--          hx-swap="beforeend"-->
-      <!--          hx-indicator="#typing-indicator">-->
-      <!--    No Money-->
-      <!--  </button>-->
-      <!--</ChatBox>-->
-
-      <!--<ChatButtons chatSelector="#chat-container" buttons={[-->
-      <!--  { label: "💰 No Money", message: "I'm not sure if I can afford it." },-->
-      <!--  { label: "🕐 No Time", message: "I don't think I'll have the time."},-->
-      <!--  { label: "🚫 No Talent", message: "I was not made to be a programmer."}-->
-      <!--]} client:load />-->
     </div>
 
   </div>
 
+
   <div class="flex flex-col justify-center items-center">
+
     <BouncingAlert href="#news-section" message="Huge news! 🙏" />
+
   </div>
 
-  <div id="news-section" class="h-screen grid place-content-center text-center py-6">
+
+  <section id="news-section" class="h-screen grid place-content-center text-center py-6">
+
     <Announcement
-        href={`/course/${firstLesson.slug}/`}
-        title="The first module is here! 🎉"
+        href=`/blogs/how_to_use_chatgpt_when_learning_to_code/`
+        title="Check out the latest blog!  🎉"
         description="Press the golden card to check it out!" />
-  </div>
+
+  </section>
+
 </Layout>

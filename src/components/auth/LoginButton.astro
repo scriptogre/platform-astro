@@ -1,0 +1,8 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const { ...rest } = Astro.props;
+---
+<button id="login-button" class="btn btn-square btn-ghost" {...rest}>
+    <Icon name="mdi:login" class="size-6" />
+</button>

@@ -1,0 +1,105 @@
+---
+// login.astro
+// - Only contains login modal HTML, used as a partial page.
+// - Works with 'auth.ts' for authentication logic.
+// - Shows errors via <FormErrors> component.
+// - Redirects to home page if user is logged in.
+// - Uses 'data-astro-reload' to avoid clashes with Astro's ViewTransitions.
+// - To be rendered through HTMX (hx-get / hx-post) by the login button in the navbar.
+// - Is not directly accessible through `/auth/login/` path from the browser.
+
+import { login, getUser } from "../../auth.ts";
+import { redirectWithHtmx } from "../../utils";
+import Modal from "../../components/Modal.astro";
+import SocialButton from "../../components/auth/SocialButton.astro";
+import FormErrors from "../../components/auth/FormErrors.astro";
+
+export const prerender = false
+export const partial = true
+
+// Check if the user is already logged in and redirect if necessary
+const { request, cookies, url } = Astro;
+const { isLoggedIn } = await getUser();
+if (isLoggedIn) {
+  return redirectWithHtmx('/'); // Redirect to the home page if already logged in
+}
+
+let errors = [];
+let redirectUrl;
+
+// Handle form submission for login
+if (request.method === 'POST') {
+
+  // Get the form data and attempt to login
+  const formData = await request.formData();
+  const result = await login({ formData, cookies, url });
+  redirectUrl = result.redirectUrl;
+  errors = result.errors;
+
+  // Redirect on successful login
+  if (!errors.length) {
+    return redirectWithHtmx(redirectUrl);
+  }
+}
+---
+<Modal>
+  <!-- Login form with error handling and social login options -->
+  <h3 class="text-xl font-bold mb-6">
+    Log in to your account
+  </h3>
+
+  <form id="login-form"
+        hx-post="/auth/login/"
+        hx-swap="outerHTML"
+        hx-target=".modal"
+        data-astro-reload>
+
+    {errors.length > 0 && <FormErrors errors={errors} />}
+
+    <input type="email" name="email" placeholder="Email address" autocomplete="email" maxlength="320"
+           class="input input-bordered input-ghost w-full mb-4">
+
+    <input type="password" name="password" placeholder="Password" autocomplete="current-password"
+           class="input input-bordered input-ghost w-full mb-4">
+
+    <div class="flex justify-between align-middle mb-4">
+
+      <label id="remember-me-label" class="cursor-pointer flex label-text">
+        <input id="remember-me-input" class="checkbox me-2" type="checkbox" checked />
+        Remember me
+      </label>
+
+      <a id="forgot-password-link"
+         hx-get="/auth/reset_password/"
+         hx-swap="outerHTML"
+         hx-target=".modal"
+         class="text-sm font-medium text-primary-content hover:underline hover:cursor-pointer">
+        Forgot password?
+      </a>
+
+    </div>
+
+    <button id="login-button" type="submit" class="btn btn-warning w-full mb-4">
+      Login
+    </button>
+
+    <span class="text-sm text-center font-light text-warning-600 dark:text-primary-500">
+      Don’t have an account yet?
+      <a id="sign-up-link"
+         hx-get="/auth/register/"
+         hx-swap="outerHTML"
+         hx-target=".modal"
+         class="font-medium text-primary-content hover:underline hover:cursor-pointer">
+        Sign up
+      </a>
+    </span>
+
+    <span class="divider text-sm flex justify-center mb-6">OR</span>
+
+    <div class="flex justify-center items-center gap-4">
+      <SocialButton provider="google" icon="ri:google-fill" />
+      <SocialButton provider="github" icon="ri:github-fill" />
+      <SocialButton provider="discord" icon="ri:discord-fill" />
+    </div>
+  </form>
+</Modal>

@@ -1,18 +1,18 @@
 ---
-import DiscordJoinButton from "./discord/JoinButton.astro";
-import UserOrLogin from "./UserOrLogin.svelte";
+import DiscordJoinButton from "./discord/DiscordJoinButton.astro";
 import HamburgerButton from "./HamburgerButton.astro";
-import LogoText from "./LogoText.astro";
+import LogoText from "./Logo.astro";
+import LoginButton from "./auth/LoginButton.astro";
 
 const { class: classList, ...rest } = Astro.props
 ---
 <nav id="top-nav" class:list={[
          classList,
-         "no-animation sticky navbar top-0 z-30 bg-custom-gradient bg-opacity-90 bg-fixed backdrop-blur border-b border-base-100"
+         "px-4 xs:*:space-x-2 no-animation sticky navbar top-0 z-30 bg-custom-gradient bg-opacity-90 bg-fixed backdrop-blur border-b border-base-100"
      ]}
      {...rest}>
 
-    <div class="navbar-start xs:space-x-2">
+    <div class="navbar-start">
 
         <HamburgerButton for="drawer-toggle" />
 
@@ -20,11 +20,10 @@ const { class: classList, ...rest } = Astro.props
 
     </div>
 
-    <div class="navbar-end xs:space-x-2">
+    <div class="navbar-end">
 
         <DiscordJoinButton href="https://discord.gg/TSMacaF9SG" />
 
-        <UserOrLogin client:load />
-
+        <div hx-get="/user_or_login/" hx-trigger="load" />
     </div>
 </nav>

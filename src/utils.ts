@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import {getCollection} from "astro:content";
 
 
@@ -33,22 +34,11 @@ export async function getFirstLesson() {
     return lessons[0];
 }
 
-export async function isLastLessonOfChapter(lesson) {
-    const sortedLessons = await getSortedLessons();
-    const currentIndex = sortedLessons.findIndex(l => l.id === lesson.id);
-    const nextLesson = sortedLessons[currentIndex + 1];
-    if (!nextLesson) {
-        return true;
-    }
-    return nextLesson.data.chapter.id !== lesson.data.chapter.id;
-}
-
 export async function getNextLesson(lesson) {
     const sortedLessons = await getSortedLessons();
     const currentIndex = sortedLessons.findIndex(l => l.id === lesson.id);
     return sortedLessons[currentIndex + 1]
 }
-
 
 export async function getPreviousLesson(lesson) {
     const sortedLessons = await getSortedLessons();
@@ -81,4 +71,8 @@ export function convertToRoman(num: number) {
     }
 
     return str;
+}
+
+export function redirectWithHtmx(url: string) {
+    return new Response(null, { status: 302, headers: { "HX-Redirect": url } });
 }

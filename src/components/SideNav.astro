@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
-import { convertToRoman } from "../utils";
+import { convertToRoman } from '../utils.ts'
 
 const { title = 'Course', class: classList, ...rest} = Astro.props;
 
@@ -22,9 +22,8 @@ let chaptersArray = chapters.map(chapter => {
     }
 });
 ---
-<nav id="side-nav" class={`${classList} side-nav min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`} {...rest}>
-    <ul class="menu text-[1rem] space-y-2"
-        _="init if window.location.pathname is not '/' add .active to <a[href*='${window.location.pathname}']/>">
+<nav id="side-nav" class={`${classList} side-nav p-2 min-h-screen w-96 max-lg:bg-custom-gradient max-lg:bg-fixed lg:backdrop-blur-xl text-base-content border-r border-base-100`} {...rest}>
+    <ul class="menu text-[1rem] space-y-2">
 
         {/*
         Course Menu
@@ -44,12 +43,11 @@ let chaptersArray = chapters.map(chapter => {
                                     </span>
                                     <ul class="mt-2 space-y-2">
                                         {chapter.lessons.map((lesson) => {
-                                            let chapterUrl = `/course/${lesson.slug}/`
-                                            let isActive = Astro.url.pathname === chapterUrl
+                                            let lessonPath = `/course/${lesson.slug}/`
                                             return (
                                                     <li title={lesson.data.title}>
                                                         {/* Bold and highlight active lesson */}
-                                                        <a href={chapterUrl} class:list={[{'active': isActive}]}>
+                                                        <a href={lessonPath} class:list={[{'active': lessonPath === Astro.url.pathname}]}>
                                                             <span class="text-ellipsis overflow-hidden">
                                                                 {lesson.data.index}. {lesson.data.title}
                                                             </span>
@@ -76,11 +74,10 @@ let chaptersArray = chapters.map(chapter => {
                 </summary>
                 <ul class="mt-2">
                     {blogs.map(blog => {
-                        let blogUrl = `/blogs/${blog.slug}/`
-                        let isActive = Astro.url.pathname === blogUrl
+                        let blogPath = `/blogs/${blog.slug}/`
                         return (
                                 <li title={blog.data.title}>
-                                    <a href={blogUrl} class:list={[{'active': isActive}]}>
+                                    <a href={blogPath} class:list={[{'active': blogPath === Astro.url.pathname}]}>
                                         <span class="text-ellipsis overflow-hidden">
                                             {blog.data.title}
                                         </span>
