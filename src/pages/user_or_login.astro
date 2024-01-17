@@ -5,8 +5,10 @@ import LoginButtonSquare from "../components/auth/LoginButton.astro";
 import UserDropdown from "../components/auth/UserDropdown.astro";
 import LogoutButton from "../components/auth/LogoutButton.astro";
 
-const { cookies } = Astro;
+export const prerender = false
+export const partial = true
 
+const { cookies } = Astro;
 const { isLoggedIn, avatarUrl, userEmail } = await getUser()
 ---
 <div id="hydrated-navbar" class="animate-fade" _="init wait 0.5s remove .animate-fade">
