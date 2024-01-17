@@ -10,13 +10,11 @@
 }
 
 @layer components {
-  .side-nav {
-    .active {
-      @apply font-bold bg-base-content/10
-    }
-    .active::before {
-      @apply content-[url('/chevron-right.svg')] size-5
-    }
+  .side-nav .active {
+    @apply font-bold bg-base-content/10
+  }
+  .side-nav .active::before {
+    @apply content-[url('/chevron-right.svg')] size-5
   }
 }
 
