@@ -14,10 +14,9 @@
     export let buttons = allowedChatButtons
 
     async function sendMessage(userInput) {
-        isSending = true
-
         await htmx.ajax('POST', '/partials/chat_message/', {values: {sender: 'user', input: userInput}, target: chatSelector, swap: `beforeend scroll:${chatSelector}:bottom`})
         await new Promise(r => setTimeout(r, 300));
+        isSending = true
         await htmx.ajax('POST', '/partials/chat_message/', {values: {sender: 'assistant', input: userInput}, target: chatSelector, swap: `beforeend scroll:${chatSelector}:bottom`})
 
         excusesCount--
