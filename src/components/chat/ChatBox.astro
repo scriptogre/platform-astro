@@ -1,6 +1,0 @@
----
-const { class: classList, ...rest } = Astro.props;
----
-<form {...rest} class:list={[classList, "flex flex-col w-full max-lg:min-h-[20rem] max-lg:max-h-[35rem] lg:h-[20rem] p-8 gap-y-0.5 overflow-y-auto rounded-l-box rounded-tr-box max-lg:rounded-r-box bg-base-100/20 border border-base-100 relative scroll-smooth"]}>
-    <slot />
-</form>

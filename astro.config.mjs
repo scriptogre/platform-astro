@@ -1,4 +1,4 @@
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import vercel from "@astrojs/vercel/serverless";
 import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
@@ -24,8 +24,5 @@ export default defineConfig({
   ],
   output: "hybrid",
   adapter: vercel(),
-  image: {
-    service: passthroughImageService()
-  },
   trailingSlash: "always"
 });
