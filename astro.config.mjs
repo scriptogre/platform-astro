@@ -1,10 +1,10 @@
-import { defineConfig } from 'astro/config';
+import {defineConfig, passthroughImageService} from 'astro/config';
 import vercel from "@astrojs/vercel/serverless";
 import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
 import icon from "astro-icon";
-import compress from "astro-compress";
+import compress from 'astro-compress';
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,10 +19,13 @@ export default defineConfig({
         ion: ['close']
       }
     }),
-    compress(),
-    mdx()
+    mdx(),
+    compress()
   ],
   output: "hybrid",
   adapter: vercel(),
-  trailingSlash: "always"
+  trailingSlash: "always",
+  image: {
+    service: passthroughImageService()
+  },
 });
