@@ -4,11 +4,13 @@
 // - Uses icons from `@iconify-json/*` packages (to be installed locally and added to `astro.config.mjs`)
 
 import { Icon } from 'astro-icon/components';
-const { provider, icon } = Astro.props;
+const { provider, icon, ...rest } = Astro.props;
 ---
 
-  <button name="provider"
-          value={provider}
-          class="hover:text-gray-100">
-    <Icon name={icon} class="size-6" />
-  </button>
+<button
+    hx-post="/auth/login/"
+    hx-vals={`{"provider": "${provider}"}`}
+    class="hover:text-gray-100"
+    {...rest}>
+  <Icon name={icon} class="size-6" />
+</button>
