@@ -1,7 +1,13 @@
 ---
 title: "Getting Started"
+description: "I don't want to waste your time, or mine, building lower quality versions of already existing content. Thus, I invite you to go ahead and start The Odin Project's Foundations Course, which will teach you everything you need to know to start getting into full-stack development."
+image: {
+  src: '/getting_started.webp',
+  alt: 'Getting Started'
+}
 chapter: 'foundations'
 index: 1
+pubDate: '2023-10-24'
 ---
 I don't want to waste your time, or mine, building lower quality versions of already existing content.
 

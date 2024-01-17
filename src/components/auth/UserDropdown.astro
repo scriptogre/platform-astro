@@ -11,7 +11,7 @@ const { avatarUrl, userEmail } = Astro.props;
     </div>
 
     <ul tabindex="0" class="dropdown-content menu text-sm text-base-content font-semibold bg-base-100/60 backdrop-blur border border-base-100 rounded-xl">
-        <li class="menu-title"><span class="text-sm">{userEmail}</span></li>
+        <li class="menu-title"><span class="text-sm text-base-content">{userEmail}</span></li>
         <slot />
     </ul>
 </div>

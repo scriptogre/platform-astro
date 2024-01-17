@@ -12,34 +12,37 @@ import { login, getUser } from "../../auth.ts";
 import { redirectWithHtmx } from "../../utils";
 import Modal from "../../components/Modal.astro";
 import SocialButton from "../../components/auth/SocialButton.astro";
-import FormErrors from "../../components/auth/FormErrors.astro";
+import FormError from "../../components/auth/FormError.astro";
 
 export const prerender = false
 export const partial = true
 
-// Check if the user is already logged in and redirect if necessary
 const { request, cookies, url } = Astro;
 const { isLoggedIn } = await getUser();
+
 if (isLoggedIn) {
-  return redirectWithHtmx('/'); // Redirect to the home page if already logged in
+  // Redirect to the home page if already logged in
+  return redirectWithHtmx('/');
 }
 
-let errors = [];
-let redirectUrl;
+let error = null;
 
-// Handle form submission for login
 if (request.method === 'POST') {
-
-  // Get the form data and attempt to login
   const formData = await request.formData();
-  const result = await login({ formData, cookies, url });
-  redirectUrl = result.redirectUrl;
-  errors = result.errors;
+  let provider = formData.get('provider')
+  let email = formData.get('email')
+  let password = formData.get('password')
 
-  // Redirect on successful login
-  if (!errors.length) {
-    return redirectWithHtmx(redirectUrl);
+  const result = await login(provider, email, password, cookies, url);
+
+  error = result.error; // Assign error if it exists
+
+  // Redirect on successful login (no error)
+  if (!error) {
+    return redirectWithHtmx(result.providerRedirectUrl || "/");
   }
+
+  // Render the login form with errors (if any)
 }
 ---
 <Modal>
@@ -54,7 +57,7 @@ if (request.method === 'POST') {
         hx-target=".modal"
         data-astro-reload>
 
-    {errors.length > 0 && <FormErrors errors={errors} />}
+    {!!error && <FormError error={error} />}
 
     <input type="email" name="email" placeholder="Email address" autocomplete="email" maxlength="320"
            class="input input-bordered input-ghost w-full mb-4">
@@ -70,7 +73,7 @@ if (request.method === 'POST') {
       </label>
 
       <a id="forgot-password-link"
-         hx-get="/auth/reset_password/"
+         hx-get="/auth/password_reset_request/"
          hx-swap="outerHTML"
          hx-target=".modal"
          class="text-sm font-medium text-primary-content hover:underline hover:cursor-pointer">

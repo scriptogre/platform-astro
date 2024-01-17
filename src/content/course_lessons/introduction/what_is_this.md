@@ -1,7 +1,13 @@
 ---
 title: "What is this?"
+description: "The Pyoneer Project is a free, open-source, full-stack Python learning path. It's the source that any ambitious self-taught developer attempting full-stack engineering with Python would benefit from."
+image: {
+  src: '/what_is_this.webp',
+  alt: 'What is this?'
+}
 chapter: introduction
 index: 1
+pubDate: '2023-10-24'
 ---
 
 This is not a coding course.

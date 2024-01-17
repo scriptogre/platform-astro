@@ -1,4 +1,3 @@
-import { execSync } from "child_process";
 import {getCollection} from "astro:content";
 
 
@@ -29,10 +28,30 @@ export async function getSortedLessons() {
     });
 }
 
-export async function getFirstLesson() {
-    const lessons = await getSortedLessons();
-    return lessons[0];
+export async function getLatestEntry(collection) {
+    // Gets the latest entry collection based on the pubDate field
+    const entries = await getCollection(collection);
+    return entries.sort((a, b) => {
+        return new Date(b.data.pubDate) - new Date(a.data.pubDate);
+    })[0];
 }
+
+
+export async function getLatestContentCollectionEntry() {
+    // Logic to retrieve and compare the latest blog and course lesson entries
+    const latestBlog = await getLatestEntry('blogs');
+    const latestLesson = await getLatestEntry('course_lessons');
+
+    // Determine which is the latest entry
+    const isBlogLatest = new Date(latestBlog.data.pubDate) > new Date(latestLesson.data.pubDate);
+
+    return {
+        entry: isBlogLatest ? latestBlog : latestLesson,
+        type: isBlogLatest ? 'blog' : 'lesson',
+        url: isBlogLatest ? `/blogs/${latestBlog.slug}/` : `/course/${latestLesson.slug}/`,
+    };
+}
+
 
 export async function getNextLesson(lesson) {
     const sortedLessons = await getSortedLessons();

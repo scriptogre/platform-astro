@@ -5,6 +5,9 @@ const { title } = Astro.props
 ---
 {/* On large (2x) screens, hide hamburger button and keep sidebar open */}
 <Layout {title} drawerClasses="2xl:drawer-open [&_label[for*='drawer']]:2xl:hidden">
+
+    <slot name="head" slot="head" />
+
     <article class="mx-auto max-w-2xl mt-8 lg:mt-16">
 
         <div class="text-start">

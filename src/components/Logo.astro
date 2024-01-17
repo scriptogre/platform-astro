@@ -1,6 +1,6 @@
 ---
-const { href } = Astro.props
+const { href, ...rest } = Astro.props
 ---
-<a {href} class="btn btn-ghost lowercase text-lg font-semibold">
+<a {href} class="btn btn-ghost lowercase text-lg font-semibold" {...rest}>
     ~/pyoneers.dev/
 </a>

@@ -1,11 +1,8 @@
 ---
+import {SEO} from "astro-seo";
 import {getCollection} from "astro:content";
 import ContentLayout from "../../layouts/ContentLayout.astro";
-
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-
-dayjs.extend(utc);
+import {Image} from 'astro:assets';
 
 export async function getStaticPaths({ paginate }) {
     const blogs = await getCollection('blogs');
@@ -19,19 +16,23 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { blog } = Astro.props;
-const { Content: BlogContent, remarkPluginFrontmatter } = await blog.render();
+const { Content: BlogContent } = await blog.render();
 
-const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
-  .utc()
-  .format("HH:mm:ss DD MMMM YYYY UTC");
-
-console.log(lastModified)
-
-let blogTitle = blog.data.title;
 ---
-<ContentLayout title={`${blogTitle}`}>
+<ContentLayout title={`${blog.data.title}`}>
+
+    <SEO slot="head"
+         description={`${blog.data.description}`}
+         openGraph={{
+             basic: {
+                 title: blog.data.title,
+                 type: 'article',
+                 image: blog.data.image.src,
+             },
+         }} />
+
     <h1 slot="header" class="text-4xl mt-4">
-        {blogTitle}
+        {blog.data.title}
     </h1>
 
     <BlogContent slot="content" />

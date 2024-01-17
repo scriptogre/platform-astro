@@ -9,108 +9,63 @@ import {redirectWithHtmx} from "./utils.ts";
 // Utility Constants
 const validProviders = ["google", "github", "discord"];
 
-// Internal utility functions
-async function signInWithOAuth({ provider, url }) {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: provider as Provider,
-    options: { redirectTo: `${url.origin}/auth/callback/` }
-  });
 
-  if (error) throw new Error(error.message);
-  return data.url;
-}
-
-async function signInWithPassword({ email, password }) {
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) throw new Error(error.message);
-  return data.session;
-}
-
-// Exported functions
-/**
- * Handles the user login process.
- *
- * This function authenticates a user either through OAuth providers or with email and password.
- * It sets session cookies upon successful authentication.
- *
- * @param {Object} params - The parameters for the login process.
- * @param {FormData} params.formData - The form data containing login credentials.
- * @param {Cookies} params.cookies - Cookie storage to manage session tokens.
- * @param {URL} params.url - The current URL context.
- * @returns {Object} An object containing the redirect URL and any error messages.
- *   - `redirectUrl`: String URL to redirect the user after successful login.
- *   - `errors`: Array of strings representing any error messages encountered during login.
- */
-export async function login({ formData, cookies, url }) {
-  let errors = [];
-  let redirectUrl = "/";
-
-  // Check if the user is already logged in
-  const { isLoggedIn } = await getUser();
-  if (isLoggedIn) {
-    return { redirectUrl, errors };
-  }
-
-  const provider = formData.get("provider")?.toString();
+export async function login(provider, email, password, cookies, url) {
   try {
-    // Handle OAuth login if a provider is specified
     if (provider && validProviders.includes(provider)) {
-      redirectUrl = await signInWithOAuth({ provider, url });
+      // OAuth login
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: provider as Provider,
+        options: { redirectTo: `${url.origin}/auth/callback/` }
+      });
+      if (error) throw new Error(error.message);
+      return { providerRedirectUrl: data.url };
     } else {
-      // Handle email/password login
-      const email = formData.get("email")?.toString();
-      const password = formData.get("password")?.toString();
+      // Email/password login
       if (!email || !password) {
         throw new Error("Email and password are required");
       }
 
-      const session = await signInWithPassword({ email, password });
-      cookies.set("sb-access-token", session.access_token, { path: "/" });
-      cookies.set("sb-refresh-token", session.refresh_token, { path: "/" });
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw new Error(error.message);
+
+      cookies.set("sb-access-token", data.session.access_token, { path: "/" });
+      cookies.set("sb-refresh-token", data.session.refresh_token, { path: "/" });
+      return {}; // Successful login, no redirect URL needed
     }
   } catch (error) {
-    errors.push(error.message);
+    // Catch any errors
+    return { error: error.message };
   }
-
-  return { redirectUrl, errors };
 }
 
-// Note: Logout is handled directly in logout.astro for simplicity.
-// export async function logout({ request, cookies, url }) {
-//   ...
-// }
+export async function logout() {
+  const { error } = await supabase.auth.signOut();
+  return { error: error?.message };
+}
 
-/**
- * Handles the user registration process.
- *
- * This function registers a new user using their email and password.
- *
- * @param {Object} params - The parameters for the registration process.
- * @param {FormData} params.formData - The form data containing registration details.
- * @returns {Object} An object containing any error messages encountered during registration.
- *   - `errors`: Array of strings representing any error messages.
- */
-export async function register({ formData }) {
-  let errors = [];
+export async function register(email, password) {
+  try {
 
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
+    if (!email || !password) {
+      throw new Error("Email and password are required");
+    }
 
-  console.log(email, password)
+    const {data, error} = await supabase.auth.signUp({email, password});
+    if (error) throw new Error(error.message)
 
-  if (!email || !password) {
-    errors.push("Email and password are required");
-    return { errors };
+  } catch (error) {
+    return { error: error.message };
   }
+}
 
-  const { data, error} = await supabase.auth.signUp({ email, password });
+export async function sendPasswordResetEmail(email, redirectTo) {
+  return await supabase.auth.resetPasswordForEmail(email, {redirectTo})
+}
 
-  if (error) {
-    errors.push(error.message);
-  }
-
-  return { errors };
+export async function updateUserPassword(newPassword) {
+  const { data, error } = await supabase.auth.updateUser({password: newPassword})
+  return { error: error?.message }
 }
 
 /**

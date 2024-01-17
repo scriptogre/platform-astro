@@ -1,7 +1,13 @@
 ---
 title: "Recap"
+description: "The Pyoneer Project is a free, open-source, full-stack Python learning path. It's the source that any ambitious self-taught developer attempting full-stack engineering with Python would benefit from."
+image: {
+  src: '/recap.webp',
+  alt: 'Recap'
+}
 chapter: introduction
 index: 4
+pubDate: '2023-10-24'
 ---
 
 - **Guidance, Not Coding**: This isn't a typical coding course. It's your roadmap for self-taught full-stack development, specifically in Python.

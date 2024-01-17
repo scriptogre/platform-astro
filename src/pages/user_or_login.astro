@@ -9,20 +9,22 @@ const { cookies } = Astro;
 
 const { isLoggedIn, avatarUrl, userEmail } = await getUser()
 ---
-{isLoggedIn ? (
+<div id="hydrated-navbar" class="animate-fade" _="init wait 0.5s remove .animate-fade">
+    {isLoggedIn ? (
 
-<UserDropdown avatarUrl={avatarUrl} userEmail={userEmail}>
-    <li>
-        <LogoutButton hx-get="/auth/logout/"
-                      hx-target="body"
-                      hx-swap="beforeend" />
-    </li>
-</UserDropdown>
+            <UserDropdown avatarUrl={avatarUrl} userEmail={userEmail}>
+                <li>
+                    <LogoutButton hx-get="/auth/logout/"
+                                  hx-target="body"
+                                  hx-swap="beforeend" />
+                </li>
+            </UserDropdown>
 
     ) : (
 
-<LoginButtonSquare hx-get="/auth/login/"
-                   hx-target="body"
-                   hx-swap="beforeend" />
+            <LoginButtonSquare hx-get="/auth/login/"
+                               hx-target="body"
+                               hx-swap="beforeend" />
 
     )}
+</div>

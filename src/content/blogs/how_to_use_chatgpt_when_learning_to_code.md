@@ -1,5 +1,11 @@
 ---
 title: 'How to use ChatGPT when learning to code'
+description: "Learning to code used to be difficult, but those times are gone. Check out this blog for concrete advice on how to systematically use ChatGPT for learning new coding concepts, whether you're a beginner or a seasoned developer looking to stay up-to-date. Don't miss out."
+image: {
+  src: '/how_to_use_chatgpt_when_learning_to_code.png',
+  alt: 'How to use ChatGPT when learning to code',
+}
+pubDate: '2024-01-15 21:00'
 ---
 While learning to code, ChatGPT utilization should be split into 2 modes:
 

@@ -1,7 +1,13 @@
 ---
 title: "Why choose it?"
+description: "This learning method emphasizes using real opportunities for the sake of learning, instead of pre-studying the subjects."
+image: {
+  src: '/why_choose_it.webp',
+  alt: 'Why choose it?'
+}
 chapter: introduction
 index: 2
+pubDate: '2023-10-24'
 ---
 
 Since everybody and their mother is getting into web development, if you try to search for [which languages/frameworks are most in-demand](https://www.reddit.com/r/cscareerquestions/comments/16oa4iq/whats_the_most_indemand_backend_languageframework/), you'll often hear about Springboot, .NET, and Node.JS. 

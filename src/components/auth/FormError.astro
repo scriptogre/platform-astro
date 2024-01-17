@@ -1,0 +1,10 @@
+---
+const { error } = Astro.props;
+---
+<div class="flex mb-4">
+    <div class="text-error">
+        <ul role="list" class="list-disc pl-5 space-y-1">
+            <li>{error}</li>
+        </ul>
+    </div>
+</div>

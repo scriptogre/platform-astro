@@ -16,9 +16,9 @@ const { title, drawerClasses } = Astro.props
 <html lang="en" class="scroll-smooth dark" style="color-scheme: dark" data-theme="dark">
 <head transition:persist>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <slot name="head" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} | The Pyoneer Project</title>
     <ViewTransitions />
@@ -59,21 +59,49 @@ const { title, drawerClasses } = Astro.props
 </div>
 
 <script is:inline>
+    /**
+     * Frontend script for handling 'modal_url' query parameter.
+     *
+     * This script is designed to work in conjunction with the 'redirectDirectModalAccess' middleware.
+     * It detects the 'modal_url' parameter added by the middleware and triggers an HTMX request
+     * to display the modal dialog.
+     *
+     * See 'redirectDirectModalAccess' in middleware.ts for how the 'modal_url' parameter is set.
+     */
+    window.addEventListener('load', () => {
+        const params = new URLSearchParams(window.location.search);
+        const modalUrl = params.get('modal_url');
+        if (modalUrl) {
+            // Decode the URL to ensure it's valid
+            const decodedUrl = decodeURIComponent(modalUrl);
+
+            // Get any other query parameters from the URL as an object to pass to HTMX request
+            const values = {};
+            for (const [key, value] of params) {
+                values[key] = value;
+            }
+
+            // Trigger HTMX request to modal URL
+            htmx.ajax('GET', decodedUrl, { target: 'body', swap: 'beforeend', values })
+
+            // Remove parameters from URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    });
+</script>
+
+<script is:inline>
+    /**
+     *  Reinitializes HTMX after content swap by Astro's <ViewTransition/>.
+     *  Ensures new HTMX elements in the DOM are functional.
+     *
+     *  See https://htmx.org/docs/#3rd-party for more info.
+     */
     document.addEventListener('astro:after-swap', () => {
         htmx.process(document.body)
     })
-    // window.addEventListener('htmx:afterRequest', () => {
-    //     // If "modalUrl" query param is present
-    //     if (window.location.search.includes('modalUrl')) {
-    //         htmx.ajax('GET', window.location.search.split('modalUrl=')[1], {
-    //             target: 'body',
-    //             swap: 'beforeend',
-    //         })
-    //         console.log('modalUrl query param detected')
-    //         console.log(window.location.search)
-    //     }
-    // })
 </script>
+
 </body>
 </html>
 

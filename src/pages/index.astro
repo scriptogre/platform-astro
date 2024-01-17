@@ -1,4 +1,6 @@
 ---
+import {getLatestContentCollectionEntry} from "../utils";
+
 import Layout from '../layouts/Layout.astro';
 import pythonLogo from '../images/logo.webp';
 
@@ -9,14 +11,14 @@ import Chat from "../components/chat/Chat.svelte";
 import CTAButton from "../components/index/CTAButton.astro";
 import LogoHeader from "../components/index/LogoHeader.astro";
 
+const { type: latestEntryType, url: latestEntryUrl } = await getLatestContentCollectionEntry()
+const announcementMessage = `Check out the latest ${latestEntryType}! 🎉`;
 ---
 
 <Layout title="Your Path To Full Stack Python">
 
   <div class="flex items-center justify-center mt-20 xl:mt-24">
-
-    <NewsTag href={`/blogs/welcome_to_my_blog/`} message="Check out the latest blog!  🎉"/>
-
+    <NewsTag href={latestEntryUrl} message={announcementMessage} />
   </div>
 
 
@@ -61,8 +63,8 @@ import LogoHeader from "../components/index/LogoHeader.astro";
   <section id="news-section" class="h-screen grid place-content-center text-center py-6">
 
     <Announcement
-        href=`/blogs/how_to_use_chatgpt_when_learning_to_code/`
-        title="Check out the latest blog!  🎉"
+        href={latestEntryUrl}
+        title={announcementMessage}
         description="Press the golden card to check it out!" />
 
   </section>

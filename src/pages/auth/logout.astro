@@ -9,9 +9,8 @@
 // - Directly handles logout here for simplicity, as per KISS principle.
 // - For more complex authentication logic, refer to auth.ts.
 
-import { supabase } from "../../lib/supabase";
 import { redirectWithHtmx } from "../../utils";
-import { getUser } from "../../auth";
+import {getUser, logout} from "../../auth";
 import { Icon } from 'astro-icon/components';
 import Modal from "../../components/Modal.astro";
 
@@ -21,10 +20,17 @@ export const partial = true
 const { request } = Astro;
 const { isLoggedIn } = await getUser();
 
-if (request.method == 'POST' && isLoggedIn) {
-    await supabase.auth.signOut();
+if (!isLoggedIn) {
+    // Redirect to home page if not logged in.
     return redirectWithHtmx("/")
 }
+
+if (request.method == 'POST') {
+    // Logout user then redirect to home page.
+    await logout()
+    return redirectWithHtmx("/")
+}
+
 ---
 <Modal>
     <div class="flex items-center mb-6">

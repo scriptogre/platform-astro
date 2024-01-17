@@ -10,7 +10,7 @@ import { register, getUser } from "../../auth.ts";
 import { redirectWithHtmx } from "../../utils";
 import Modal from "../../components/Modal.astro";
 import SocialButton from "../../components/auth/SocialButton.astro";
-import FormErrors from "../../components/auth/FormErrors.astro";
+import FormErrors from "../../components/auth/FormError.astro";
 
 export const prerender = false
 export const partial = true
@@ -19,17 +19,21 @@ const { request } = Astro;
 const { isLoggedIn } = await getUser();
 
 if (isLoggedIn) {
-  return redirectWithHtmx("/");
+  return redirectWithHtmx("/"); // Redirect to the home page if already logged in
 }
 
-let errors = [];
+let error = null;
 
 if (request.method === 'POST') {
   const formData = await request.formData();
-  const result = await register({ formData });
-  errors = result.errors;
+  const email = formData.get("email")?.toString()
+  const password = formData.get("password")?.toString()
 
-  if (!errors.length) {
+  const result = await register(email, password);
+
+  error = result.error; // Assign error if it exists
+
+  if (!error) {
     return redirectWithHtmx("/");
   }
 }
@@ -45,7 +49,7 @@ if (request.method === 'POST') {
         hx-target=".modal"
         data-astro-reload>
 
-    {errors.length > 0 && <FormErrors errors={errors} />}
+    {!!error && <FormErrors error={error} />}
 
     <input type="email" name="email" placeholder="Email address" autocomplete="email" maxlength="320" class="input input-bordered input-ghost w-full mb-4">
     <input type="password" name="password" placeholder="Password" autocomplete="new-password" class="input input-bordered input-ghost w-full mb-4">

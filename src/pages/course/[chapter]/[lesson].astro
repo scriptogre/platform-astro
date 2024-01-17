@@ -4,6 +4,7 @@ import { Icon } from "astro-icon/components";
 
 import NavigationArrows from "../../../components/course/NavigationArrows.astro";
 import ContentLayout from "../../../layouts/ContentLayout.astro";
+import {SEO} from "astro-seo";
 
 export async function getStaticPaths({ paginate }) {
     // Fetch all lessons including meta.md files
@@ -31,6 +32,17 @@ let chapterTitle = chapter.data.title;
 let lessonTitle = lesson.data.title;
 ---
 <ContentLayout title={`${lessonTitle} - ${chapterTitle}`}>
+
+    <SEO slot="head"
+         description={`${lesson.data.description}`}
+         openGraph={{
+             basic: {
+                 title: lesson.data.title,
+                 type: 'article',
+                 image: lesson.data.image.src,
+             },
+         }} />
+
     <div slot="header">
         <span class="text-base-content/80 text-sm">
             {chapterTitle}

@@ -12,14 +12,33 @@ export const collections = {
         type: 'content',
         schema: z.object({
             title: z.string(),
+            description: z.string(),
+            image: z.object({
+                src: z.string(),
+                alt: z.string(),
+            })
+                .optional(),
             index: z.number(),
             chapter: reference('course_chapters'),
+            pubDate: z
+                .string()
+                .or(z.date())
+                .transform((val) => new Date(val)),
         })
     }),
     blogs: defineCollection({
         type: 'content',
         schema: z.object({
-            title: z.string()
+            title: z.string(),
+            description: z.string(),
+            image: z.object({
+                src: z.string(),
+                alt: z.string(),
+            }),
+            pubDate: z
+                .string()
+                .or(z.date())
+                .transform((val) => new Date(val)),
         })
     })
 }

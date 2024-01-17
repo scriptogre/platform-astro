@@ -54,3 +54,12 @@ References:
 - This projects always has `trailingSlash: "always"` in `astro.config.mjs`. Ensure you include them, otherwise you'll get 404.
 
 *This is because of an issue where `Astro.url.pathname` was inconsistent between dev and build, which caused issues in `<SideNav>` component. https://github.com/withastro/astro/issues/4638*
+
+- Inside HTMX partial pages that are SSR, the typical `redirect()` function does not work. 
+  - Instead, use the `redirectWithHtmx()` function, which uses `HX-Redirect` header to do a full page client redirect. 
+  - For more information, see https://htmx.org/reference/#response_headers
+
+- Most of the auth logic has been moved into `auth.ts`. 
+  - This might cause some abstractions seeming redundant, but this choice was to keep the code consistent and organized. 
+  - This also enables easily swapping the auth logic with a different provider (e.g. Auth0), without having to modify the `.astro` files too much.
+  - What the `.astro` files do is to call functions from `auth.ts`, handle redirects and display the appropriate content / error messages.

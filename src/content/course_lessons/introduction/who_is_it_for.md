@@ -1,7 +1,13 @@
 ---
 title: "Who is it for?"
+description: "This project is for people who prefer the high risk / high reward path, and who are able to tolerate the stress that comes with it."
+image: {
+  src: '/who_is_it_for.webp',
+  alt: 'Who is it for?'
+}
 chapter: introduction
 index: 3
+pubDate: '2023-10-24'
 ---
 
 My approach is for people who prefer the high risk / high reward path, and who are able to tolerate the stress that comes with it.

@@ -2,7 +2,6 @@
 import DiscordJoinButton from "./discord/DiscordJoinButton.astro";
 import HamburgerButton from "./HamburgerButton.astro";
 import LogoText from "./Logo.astro";
-import LoginButton from "./auth/LoginButton.astro";
 
 const { class: classList, ...rest } = Astro.props
 ---
@@ -16,7 +15,7 @@ const { class: classList, ...rest } = Astro.props
 
         <HamburgerButton for="drawer-toggle" />
 
-        <LogoText href="/" />
+        <LogoText href="/" data-astro-reload />
 
     </div>
 
@@ -24,6 +23,6 @@ const { class: classList, ...rest } = Astro.props
 
         <DiscordJoinButton href="https://discord.gg/TSMacaF9SG" />
 
-        <div hx-get="/user_or_login/" hx-trigger="load" />
+        <div hx-get="/user_or_login/" hx-trigger="load" class="size-12" />
     </div>
 </nav>
