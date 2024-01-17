@@ -26,6 +26,7 @@
     "@iconify-json/solar": "^1.1.9",
     "@supabase/supabase-js": "^2.39.2",
     "@upstash/redis": "^1.28.0",
+    "@vercel/speed-insights": "^1.0.4",
     "astro": "4.0.2",
     "astro-compress": "astro-community/AstroCompress#no-sharp",
     "astro-icon": "^1.0.2",

@@ -1,5 +1,6 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import  SpeedInsights  from "@vercel/speed-insights/astro"
 
 import '../css/base.css';
 
@@ -33,6 +34,7 @@ const { title, drawerClasses } = Astro.props
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} | The Pyoneer Project</title>
     <ViewTransitions />
+    <SpeedInsights />
     <script src="https://unpkg.com/htmx.org"></script>
     <script src="https://unpkg.com/hyperscript.org"></script>
 </head>
