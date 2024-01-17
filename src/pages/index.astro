@@ -8,7 +8,7 @@ import NewsTag from "../components/index/NewsTag.astro";
 import BouncingAlert from "../components/index/BouncingAlert.astro";
 import Announcement from "../components/index/Announcement.astro";
 import Chat from "../components/chat/Chat.svelte";
-import CTAButton from "../components/index/CTAButton.astro";
+import ObnoxiousButton from "../components/index/ObnoxiousButton.svelte";
 import LogoHeader from "../components/index/LogoHeader.astro";
 
 const { type: latestEntryType, url: latestEntryUrl } = await getLatestContentCollectionEntry()
@@ -40,8 +40,7 @@ const announcementMessage = `Check out the latest ${latestEntryType}! 🎉`;
         You won't get these tips from ChatGPT
       </span>
 
-      <CTAButton label="Press to Enroll Now" class="mb-3" />
-
+      <ObnoxiousButton client:load />
     </div>
 
     <div class="flex flex-col justify-center items-center my-12 xl:my-16 lg:px-4">
