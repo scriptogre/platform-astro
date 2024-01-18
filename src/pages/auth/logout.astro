@@ -1,37 +1,28 @@
 ---
 // logout.astro
-// - Only contains logout modal HTML, used as a partial page.
-// - Works with 'auth.ts' for authentication logic.
-// - Redirects to home page after successful logout.
-// - Uses 'data-astro-reload' to avoid clashes between Astro ViewTransitions and htmx.
-// - To be rendered through htmx (hx-post) by the logout button in the navbar.
-// - Is not directly accessible through `/auth/logout/` path from the browser.
-// - Directly handles logout here for simplicity, as per KISS principle.
-// - For more complex authentication logic, refer to auth.ts.
+// Contains the logout modal HTML, used as a partial page.
+// Handles user logout logic and redirects to the home page after successful logout.
+// Uses 'data-astro-reload' to avoid clashes between Astro ViewTransitions and htmx.
 
 import { redirectWithHtmx } from "../../utils";
-import {getUser, logout} from "../../auth";
+import { getUser, logout } from "../../auth";
 import { Icon } from 'astro-icon/components';
 import Modal from "../../components/Modal.astro";
 
-export const prerender = false
-export const partial = true
+export const prerender = false;
+export const partial = true;
 
 const { request } = Astro;
 const { isLoggedIn } = await getUser();
 
 if (!isLoggedIn) {
-    // Redirect to home page if not logged in.
-    return redirectWithHtmx("/")
+    return redirectWithHtmx("/");
 }
 
 if (request.method == 'POST') {
-    // Logout user then redirect to home page.
-    await logout()
-    return redirectWithHtmx("/")
-}
-
----
+    await logout();
+    return redirectWithHtmx("/");
+}---
 <Modal>
     <div class="flex items-center mb-6">
         <Icon name="mdi:logout" class="size-6 me-2"/>
