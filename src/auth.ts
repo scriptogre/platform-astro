@@ -2,13 +2,12 @@
 // Purpose: This file contains all authentication-related functions for the application.
 // It interfaces with Supabase to handle user login, registration, logout, and fetching user information.
 
-import {supabase} from "./lib/supabase.ts";
-import type {Provider} from "@supabase/supabase-js";
-import {redirectWithHtmx} from "./utils.ts";
+import { supabase } from "./lib/supabase.ts";
+import type { Provider } from "@supabase/supabase-js";
+import { redirectWithHtmx } from "./utils.ts";
 
 // Utility Constants
 const validProviders = ["google", "github", "discord"];
-
 
 export async function login(provider, email, password, cookies, url) {
   try {
@@ -16,7 +15,7 @@ export async function login(provider, email, password, cookies, url) {
       // OAuth login
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: provider as Provider,
-        options: { redirectTo: `${url.origin}/auth/callback/` }
+        options: { redirectTo: `${url.origin}/auth/callback/` },
       });
       if (error) throw new Error(error.message);
       return { providerRedirectUrl: data.url };
@@ -26,11 +25,16 @@ export async function login(provider, email, password, cookies, url) {
         throw new Error("Email and password are required");
       }
 
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
       if (error) throw new Error(error.message);
 
       cookies.set("sb-access-token", data.session.access_token, { path: "/" });
-      cookies.set("sb-refresh-token", data.session.refresh_token, { path: "/" });
+      cookies.set("sb-refresh-token", data.session.refresh_token, {
+        path: "/",
+      });
       return {}; // Successful login, no redirect URL needed
     }
   } catch (error) {
@@ -46,26 +50,26 @@ export async function logout() {
 
 export async function register(email, password) {
   try {
-
     if (!email || !password) {
       throw new Error("Email and password are required");
     }
 
-    const {data, error} = await supabase.auth.signUp({email, password});
-    if (error) throw new Error(error.message)
-
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) throw new Error(error.message);
   } catch (error) {
     return { error: error.message };
   }
 }
 
 export async function sendPasswordResetEmail(email, redirectTo) {
-  return await supabase.auth.resetPasswordForEmail(email, {redirectTo})
+  return await supabase.auth.resetPasswordForEmail(email, { redirectTo });
 }
 
 export async function updateUserPassword(newPassword) {
-  const { data, error } = await supabase.auth.updateUser({password: newPassword})
-  return { error: error?.message }
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword,
+  });
+  return { error: error?.message };
 }
 
 /**
@@ -77,7 +81,9 @@ export async function updateUserPassword(newPassword) {
  *   - `userEmail`: string representing the user's email (if logged in).
  */
 export async function getUser() {
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return { isLoggedIn: false };
@@ -86,7 +92,7 @@ export async function getUser() {
   return {
     isLoggedIn: true,
     avatarUrl: user.user_metadata.avatar_url,
-    userEmail: user.email
+    userEmail: user.email,
     // Include other user details you need
   };
 }

@@ -1,8 +1,13 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 const { class: classList, ...rest } = Astro.props;
 ---
-<button id="login-button" class:list={[classList, "btn btn-square btn-ghost"]} {...rest}>
-    <Icon name="mdi:login" class="size-6" />
+
+<button
+  id="login-button"
+  class:list={[classList, "btn btn-square btn-ghost"]}
+  {...rest}
+>
+  <Icon name="mdi:login" class="size-6" />
 </button>

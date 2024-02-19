@@ -1,8 +1,9 @@
-<dialog class="modal backdrop-blur-sm"
-        hx-on::load="this.showModal()"
-        hx-on:close="this.remove()">
-
-  <div id="modal-content" class="modal-box bg-[#161C22] border border-base-100">
+<dialog
+  class="modal backdrop-blur-sm"
+  hx-on::load="this.showModal()"
+  hx-on:close="this.remove()"
+>
+  <div id="modal-content" class="modal-box border border-base-100 bg-[#161C22]">
     <slot />
   </div>
 

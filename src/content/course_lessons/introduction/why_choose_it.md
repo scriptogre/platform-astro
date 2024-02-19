@@ -1,19 +1,16 @@
 ---
 title: "Why choose it?"
 description: "This learning method emphasizes using real opportunities for the sake of learning, instead of pre-studying the subjects."
-image: {
-  src: '/why_choose_it.webp',
-  alt: 'Why choose it?'
-}
+image: { src: "/why_choose_it.webp", alt: "Why choose it?" }
 chapter: introduction
 index: 2
-pubDate: '2023-10-24'
+pubDate: "2023-10-24"
 ---
 
-Since everybody and their mother is getting into web development, if you try to search for [which languages/frameworks are most in-demand](https://www.reddit.com/r/cscareerquestions/comments/16oa4iq/whats_the_most_indemand_backend_languageframework/), you'll often hear about Springboot, .NET, and Node.JS. 
+Since everybody and their mother is getting into web development, if you try to search for [which languages/frameworks are most in-demand](https://www.reddit.com/r/cscareerquestions/comments/16oa4iq/whats_the_most_indemand_backend_languageframework/), you'll often hear about Springboot, .NET, and Node.JS.
 
 Why? Because big companies have many job opportunities for them.
-![Enterprise Languages](https://cdn.statically.io/gh/ThePyoneerProject/course/stable/introduction/why_choose_it/img/enterprise_languages.webp) 
+![Enterprise Languages](https://cdn.statically.io/gh/ThePyoneerProject/course/stable/introduction/why_choose_it/img/enterprise_languages.webp)
 
 **But there's a better path.**
 
@@ -21,10 +18,12 @@ Pick the tools that you find easy to learn, and fun to work with. Don't fall to 
 
 Big companies might limit your growth. You'll use their old tools and follow strict rules. But in startups, you get to explore and grow fast.
 
-And here's the thing: using modern, flexible tech stacks aligns perfectly with the fast-paced, growth-oriented environment of startups. 
+And here's the thing: using modern, flexible tech stacks aligns perfectly with the fast-paced, growth-oriented environment of startups.
 
 So, presenting to you...
+
 ## The holy stack
+
 ![The Holy Stack](https://cdn.statically.io/gh/ThePyoneerProject/course/stable/introduction/why_choose_it/img/the_holy_stack.webp)
 
 - **Python (Django)**
@@ -32,17 +31,18 @@ So, presenting to you...
 - **Hyperscript**
 - **TailwindCSS**
 
-Learn these tools, and you'll be a one man army on the web development front. They're not only powerful, but also **fun as heck** to work with. 
+Learn these tools, and you'll be a one man army on the web development front. They're not only powerful, but also **fun as heck** to work with.
 
-In fact, this whole platform was built with them - and it was a breeze. 
+In fact, this whole platform was built with them - and it was a breeze.
 
-Go ahead and `Right Click > Inspect` the yellow button from the landing page. Double-click inside `Inspector` to see the whole HTML element, and look at the underscore `_` attribute - that's \_hyperscript. 
+Go ahead and `Right Click > Inspect` the yellow button from the landing page. Double-click inside `Inspector` to see the whole HTML element, and look at the underscore `_` attribute - that's \_hyperscript.
 
 This course will teach you how to master **The Holy Stack**.
 
 _Disclaimer: While this tech stack boosts productivity, they're just tools. I'd switch for better options. What matters more is the skill behind the screen._
 
 ## The Learning Approach
+
 ![The Different Approach](https://cdn.statically.io/gh/ThePyoneerProject/course/stable/introduction/why_choose_it/img/the_different_approach.webp)
 
 > You have to struggle a bit at first, and opportunities will arise.
@@ -56,13 +56,13 @@ However, building **useless** "To Do List" apps just for the sake of learning is
 
 I'll share a quick story to highlight my approach for learning as much as possible while doing something.
 
-I was seeking clients for WordPress websites. 
+I was seeking clients for WordPress websites.
 
 With what little **Python** I knew, I built a script that scraped local businesses from the web and put them in an Excel sheet. After several cold calling attempts, I realized that going to present my offer in person had a higher success rate.
 
 I found myself in a doctor's office. Sweaty hands and trembling voice, I offered a landing page for his dental clinic, in exchange for €500 - and he accepted! ✅
 
-As it turns out, he was also the director of a large Contract Research Organization and, impressed by my 17-year-old self's initiative, he offered me a job as an IT support at his company. 
+As it turns out, he was also the director of a large Contract Research Organization and, impressed by my 17-year-old self's initiative, he offered me a job as an IT support at his company.
 
 So, I also landed my first job! ✅
 
@@ -76,7 +76,7 @@ They were ugly as **heck**. (I was on a tight deadline 👉👈)
 ![Old Ugly Internal App](https://cdn.statically.io/gh/ThePyoneerProject/course/stable/introduction/why_choose_it/img/old_app.webp)
 But I solved their problems! ✅
 
-Eager to move from WordPress to **Django**, I suggested redesigning & rebuilding the web apps for better scalability and long-term use. 
+Eager to move from WordPress to **Django**, I suggested redesigning & rebuilding the web apps for better scalability and long-term use.
 
 As a bonus - I also used the apps' ugliness as an excuse (make the best of what you have, right?).
 
@@ -104,7 +104,7 @@ It's a 3-step process:
 
 This makes the learning process way more meaningful, and also makes it a lot less likely to give up halfway - because someone is actually expecting your project!
 
-Although it sounds simple on paper, I can't say the implementation was even remotely easy for me. 
+Although it sounds simple on paper, I can't say the implementation was even remotely easy for me.
 
 This is not an approach that's feasible for just anyone. It really helps if you're naturally handy, and like figuring out stuff by yourself.
 
@@ -113,6 +113,7 @@ It's also a process that includes lots of mistakes, stress, frustration and disc
 I will help you master **The Ultimate Learning Approach**.
 
 ## So... Why choose this project?
+
 ![A New Path](https://cdn.statically.io/gh/ThePyoneerProject/course/stable/introduction/why_choose_it/img/a_new_path.webp)
 
 I want to share a new path - one of passion.

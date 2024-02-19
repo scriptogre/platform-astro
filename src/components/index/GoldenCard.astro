@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 interface Props {
   cardLogo?: string;
@@ -14,52 +14,73 @@ interface Props {
 }
 
 const {
-  cardPin = '&nbsp;',
-  cardNumber = 'CLAIM YOUR FREE ACCESS',
-  cardHolder = 'Giga Chad',
-  cardExpires = 'N/A',
-  cardCvc = '313',
-  backColor = 'bg-gray-500/10',
-  frontColorFrom = 'from-amber-900',
-  frontColorTo = 'to-yellow-300'
+  cardPin = "&nbsp;",
+  cardNumber = "GET FULL ACCESS",
+  cardHolder = "Giga Chad",
+  cardExpires = "N/A",
+  cardCvc = "313",
+  backColor = "bg-gray-500/10",
+  frontColorFrom = "from-amber-900",
+  frontColorTo = "to-yellow-300",
 } = Astro.props;
 ---
 
-<div id="golden-card" class="group-hover:scale-105 transition-transform mx-auto w-max h-max select-none">
-    <!-- Card Back -->
-    <div id="card-back" class={`z-1 hidden md:block absolute overflow-hidden transform translate-x-[1rem] translate-y-4 w-96 h-56 rounded-2xl ${backColor} shadow-2xl`}>
-        <div class="w-full h-12 bg-gray-400/10 absolute top-10">&nbsp;</div>
+<div
+  id="golden-card"
+  class="mx-auto h-max w-max select-none transition-transform group-hover:scale-105"
+>
+  <!-- Card Back -->
+  <div
+    id="card-back"
+    class={`z-1 hidden md:block absolute overflow-hidden transform translate-x-[1rem] translate-y-4 w-96 h-56 rounded-2xl ${backColor} shadow-2xl`}
+  >
+    <div class="absolute top-10 h-12 w-full bg-gray-400/10">&nbsp;</div>
+  </div>
+
+  <!-- Card Front -->
+  <div
+    id="card-front"
+    class={`z-2 relative overflow-hidden md:transform md:translate-x-[-1rem] max-md:scale-75 w-96 h-56 rounded-2xl px-8 py-6 border border-zinc-900 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] ${frontColorFrom} ${frontColorTo} text-white shadow-xl flex flex-col justify-end gap-6`}
+  >
+    <!-- Visa logo -->
+    <div
+      id="card-logo"
+      class="absolute right-8 top-6 flex h-8 w-16 items-center justify-items-center"
+    >
+      <Icon name="ri:visa-line" class="size-14" />
     </div>
 
-    <!-- Card Front -->
-    <div id="card-front" class={`z-2 relative overflow-hidden md:transform md:translate-x-[-1rem] max-md:scale-75 w-96 h-56 rounded-2xl px-8 py-6 border border-zinc-900 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] ${frontColorFrom} ${frontColorTo} text-white shadow-xl flex flex-col justify-end gap-6`}>
-        <!-- Visa logo -->
-        <div id="card-logo" class="absolute top-6 right-8 w-16 h-8 flex justify-items-center items-center">
-            <Icon name="ri:visa-line" class="size-14" />
-        </div>
-
-        <!-- PIN -->
-        <div id="card-pin" class="w-11 h-7 rounded bg-yellow-100" innerHTML={cardPin}></div>
-
-        <!-- Card number -->
-        <div id="card-number" class="whitespace-nowrap text-xl font-semibold" style="font-family:Courier new, mono;">
-            {cardNumber}
-        </div>
-
-        <!-- Card infos -->
-        <div id="card-credentials" class="flex gap-8">
-            <div id="card-owner" class="flex flex-col w-max">
-                <span class="text-xs uppercase">Card holder</span>
-                <span class="whitespace-nowrap text-lg">{cardHolder}</span>
-            </div>
-            <div id="card-expires" class="flex flex-col w-max">
-                <span class="text-xs uppercase">Expires</span>
-                <span class="whitespace-nowrap text-lg">{cardExpires}</span>
-            </div>
-            <div id="card-cvc" class="flex flex-col w-max">
-                <span class="text-xs uppercase">cvc</span>
-                <span class="whitespace-nowrap text-lg">{cardCvc}</span>
-            </div>
-        </div>
+    <!-- PIN -->
+    <div
+      id="card-pin"
+      class="h-7 w-11 rounded bg-yellow-100"
+      innerHTML={cardPin}
+    >
     </div>
+
+    <!-- Card number -->
+    <div
+      id="card-number"
+      class="whitespace-nowrap text-xl font-semibold"
+      style="font-family:Courier new, mono;"
+    >
+      {cardNumber}
+    </div>
+
+    <!-- Card infos -->
+    <div id="card-credentials" class="flex gap-8">
+      <div id="card-owner" class="flex w-max flex-col">
+        <span class="text-xs uppercase">Card holder</span>
+        <span class="whitespace-nowrap text-lg">{cardHolder}</span>
+      </div>
+      <div id="card-expires" class="flex w-max flex-col">
+        <span class="text-xs uppercase">Expires</span>
+        <span class="whitespace-nowrap text-lg">{cardExpires}</span>
+      </div>
+      <div id="card-cvc" class="flex w-max flex-col">
+        <span class="text-xs uppercase">cvc</span>
+        <span class="whitespace-nowrap text-lg">{cardCvc}</span>
+      </div>
+    </div>
+  </div>
 </div>

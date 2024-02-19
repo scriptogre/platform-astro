@@ -1,10 +1,10 @@
 ---
-import {Icon} from "astro-icon/components";
+import { Icon } from "astro-icon/components";
 
-const { for: forInput = 'drawer-toggle' } = Astro.props;
+const { for: forInput = "drawer-toggle" } = Astro.props;
 ---
-<label for={forInput}
-       class="btn btn-square btn-ghost swap swap-rotate">
-    <Icon name="solar:hamburger-menu-outline" class="swap-off size-8" />
-    <Icon name="ion:close" class="swap-on size-8" />
+
+<label for={forInput} class="btn btn-square btn-ghost swap swap-rotate">
+  <Icon name="solar:hamburger-menu-outline" class="swap-off size-8" />
+  <Icon name="ion:close" class="swap-on size-8" />
 </label>

@@ -11,12 +11,12 @@ const { url, cookies, redirect } = Astro;
 
 const authCode = url.searchParams.get("code");
 if (!authCode) {
-    console.error("No auth code found");
+  console.error("No auth code found");
 }
 
 const { data, error } = await supabase.auth.exchangeCodeForSession(authCode);
 if (error) {
-    console.error("Error", error.message);
+  console.error("Error", error.message);
 }
 
 const { access_token, refresh_token } = data.session;

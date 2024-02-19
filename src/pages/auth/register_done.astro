@@ -1,25 +1,25 @@
 ---
 import Modal from "../../components/Modal.astro";
 
-export const prerender = false
-export const partial = true
+export const prerender = false;
+export const partial = true;
 ---
 
 <Modal>
-    <h3 class="text-xl font-bold mb-6">
-        Registration Done
-    </h3>
-    <p class="mb-4">
-        Hey chief, you're all set! You can now sign in with your new account.
-    </p>
-    <p class="text-sm font-light">
-        Proceed to the sign in page:
-        <a id="back-to-login-link"
-           hx-get="/auth/signin"
-           hx-target="body"
-           hx-swap="beforeend"
-           class="font-medium text-primary-content hover:underline hover:cursor-pointer">
-            Sign in
-        </a>
-    </p>
+  <h3 class="mb-6 text-xl font-bold">Registration Done</h3>
+  <p class="mb-4">
+    Hey chief, you're all set! You can now sign in with your new account.
+  </p>
+  <p class="text-sm font-light">
+    Proceed to the sign in page:
+    <a
+      id="back-to-login-link"
+      hx-get="/auth/signin"
+      hx-target="body"
+      hx-swap="beforeend"
+      class="font-medium text-primary-content hover:cursor-pointer hover:underline"
+    >
+      Sign in
+    </a>
+  </p>
 </Modal>

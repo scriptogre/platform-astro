@@ -1,29 +1,30 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 
 import NavigationArrows from "../../../components/course/NavigationArrows.astro";
 import ContentLayout from "../../../layouts/ContentLayout.astro";
-import {SEO} from "astro-seo";
+import { SEO } from "astro-seo";
 
 export async function getStaticPaths({ paginate }) {
-    // Fetch all lessons including meta.md files
-    const lessons = await getCollection('course_lessons');
+  // Fetch all lessons including meta.md files
+  const lessons = await getCollection("course_lessons");
 
-    // Generate paths for each lesson
-    return lessons.map(lesson => {
+  // Generate paths for each lesson
+  return lessons.map((lesson) => {
+    // Split the slug into chapter and lesson slugs (because Astro doesn't offer easy access to each part of the slug)
+    let [chapterSlug, lessonSlug] = lesson.slug.split("/");
 
-        // Split the slug into chapter and lesson slugs (because Astro doesn't offer easy access to each part of the slug)
-        let [chapterSlug, lessonSlug] = lesson.slug.split("/");
-
-        return {
-            params: { chapter: chapterSlug, lesson: lessonSlug },
-            props: { lesson }
-        }
-    });
+    return {
+      params: { chapter: chapterSlug, lesson: lessonSlug },
+      props: { lesson },
+    };
+  });
 }
 
+const { redirect } = Astro;
 const { lesson } = Astro.props;
+
 const chapter = await getEntry(lesson.data.chapter);
 
 const { Content: LessonContent } = await lesson.render();
@@ -31,33 +32,34 @@ const { Content: LessonContent } = await lesson.render();
 let chapterTitle = chapter.data.title;
 let lessonTitle = lesson.data.title;
 ---
+
 <ContentLayout title={`${lessonTitle} - ${chapterTitle}`}>
+  <SEO
+    slot="head"
+    description={`${lesson.data.description}`}
+    openGraph={{
+      basic: {
+        title: lesson.data.title,
+        type: "article",
+        image: lesson.data.image.src,
+      },
+    }}
+  />
 
-    <SEO slot="head"
-         description={`${lesson.data.description}`}
-         openGraph={{
-             basic: {
-                 title: lesson.data.title,
-                 type: 'article',
-                 image: lesson.data.image.src,
-             },
-         }} />
+  <div slot="header">
+    <span class="text-sm text-base-content/80">
+      {chapterTitle}
+      <Icon name="mdi:chevron-right" class="mr-1 inline-block size-4" />
+    </span>
 
-    <div slot="header">
-        <span class="text-base-content/80 text-sm">
-            {chapterTitle}
-            <Icon name="mdi:chevron-right" class="inline-block size-4 mr-1" />
-        </span>
+    <h1 class="mt-4 text-4xl">
+      {lessonTitle}
+    </h1>
+  </div>
 
-        <h1 class="text-4xl mt-4">
-            {lessonTitle}
-        </h1>
-    </div>
+  <div slot="content">
+    <LessonContent />
 
-    <div slot="content">
-        <LessonContent />
-
-        <NavigationArrows class="mt-12" lesson={lesson} />
-    </div>
-
+    <NavigationArrows class="mt-12" lesson={lesson} />
+  </div>
 </ContentLayout>

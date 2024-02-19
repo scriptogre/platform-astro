@@ -1,39 +1,40 @@
 ---
-import {SEO} from "astro-seo";
-import {getCollection} from "astro:content";
+import { SEO } from "astro-seo";
+import { getCollection } from "astro:content";
 import ContentLayout from "../../layouts/ContentLayout.astro";
-import {Image} from 'astro:assets';
+import { Image } from "astro:assets";
 
 export async function getStaticPaths({ paginate }) {
-    const blogs = await getCollection('blogs');
+  const blogs = await getCollection("blogs");
 
-    return blogs.map(blog => {
-        return {
-            params: { blog: blog.slug },
-            props: { blog }
-        }
-    });
+  return blogs.map((blog) => {
+    return {
+      params: { blog: blog.slug },
+      props: { blog },
+    };
+  });
 }
 
 const { blog } = Astro.props;
 const { Content: BlogContent } = await blog.render();
-
 ---
+
 <ContentLayout title={`${blog.data.title}`}>
+  <SEO
+    slot="head"
+    description={`${blog.data.description}`}
+    openGraph={{
+      basic: {
+        title: blog.data.title,
+        type: "article",
+        image: blog.data.image.src,
+      },
+    }}
+  />
 
-    <SEO slot="head"
-         description={`${blog.data.description}`}
-         openGraph={{
-             basic: {
-                 title: blog.data.title,
-                 type: 'article',
-                 image: blog.data.image.src,
-             },
-         }} />
+  <h1 slot="header" class="mt-4 text-4xl">
+    {blog.data.title}
+  </h1>
 
-    <h1 slot="header" class="text-4xl mt-4">
-        {blog.data.title}
-    </h1>
-
-    <BlogContent slot="content" />
+  <BlogContent slot="content" />
 </ContentLayout>

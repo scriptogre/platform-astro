@@ -5,24 +5,62 @@
 
 @layer base {
   body {
-    @apply bg-custom-gradient bg-fixed min-h-screen antialiased
+    @apply bg-gradient-main bg-fixed relative z-0 min-h-screen;
+  }
+  body::before {
+    @apply bg-gradient-astro bg-fixed absolute z-[-1] inset-0 opacity-0 transition-all duration-500 content-[''] before:bg-grid
   }
 }
 
 @layer components {
-  .side-nav .active {
-    @apply font-bold bg-base-content/10
-  }
-  .side-nav .active::before {
-    @apply content-[url('/chevron-right.svg')] size-5
+  .side-nav {
+
+    a.active {
+      @apply bg-base-content/10 font-semibold
+    }
+
+    /* Adds a chevron to the active link */
+    a.active::before {
+      @apply content-[url('/icons/chevron-right.svg')] size-5
+    }
+
+    /* Adds a lock to the disabled link */
+    a.disabled::after {
+      @apply content-[url('/icons/lock.svg')] size-4 justify-self-end
+    }
+
+    /* Adds a new badge to the new link */
+    a.new::after {
+      @apply content-['new'] bg-warning text-base-300/90 text-xs font-light font-mono w-9 h-4 py-0.5 inline-flex items-center justify-center rounded-full
+    }
   }
 }
 
 @layer utilities {
-  .bg-custom-gradient {
-    background-image: linear-gradient(175deg, rgb(18, 23, 24) 50%, rgb(29, 38, 49) 100%);
+  .bg-gradient-main {
+    background-image: linear-gradient(
+            175deg,
+            rgb(18, 23, 24) 50%,
+            rgb(29, 38, 49) 100%
+    );
+  }
+  .bg-gradient-astro {
+    background-image: linear-gradient(
+            175deg,
+            #261C2E 0%,
+            rgb(18, 23, 24) 33%,
+            rgb(18, 23, 0) 100%
+    );
+  }
+  .bg-grid {
+    @apply bg-[url('/grid.png')] bg-[100px_100px]
   }
   .shadow-inner-golden {
-    box-shadow: inset -100px 0 100px -100px #FBBD23, inset 100px 0 100px -100px #FBBD23;
+    box-shadow:
+            inset -100px 0 100px -100px #fbbd23,
+            inset 100px 0 100px -100px #fbbd23;
+  }
+  .transition-gradient {
+    @apply before:opacity-100
   }
 }

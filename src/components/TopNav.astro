@@ -3,26 +3,27 @@ import DiscordJoinButton from "./discord/DiscordJoinButton.astro";
 import HamburgerButton from "./HamburgerButton.astro";
 import LogoText from "./Logo.astro";
 
-const { class: classList, ...rest } = Astro.props
+const { class: classList, ...rest } = Astro.props;
 ---
-<nav id="top-nav" class:list={[
-         classList,
-         "px-4 xs:*:space-x-2 no-animation sticky navbar top-0 z-30 bg-custom-gradient bg-opacity-90 bg-fixed backdrop-blur border-b border-base-100"
-     ]}
-     {...rest}>
 
-    <div class="navbar-start">
+<nav
+  id="top-nav"
+  class:list={[
+    classList,
+    "bg-gradient-main navbar no-animation sticky top-0 z-30 border-b border-base-100 bg-opacity-90 bg-fixed px-4 backdrop-blur xs:*:space-x-2",
+  ]}
+  {...rest}
+>
+  <div class="navbar-start">
+    <HamburgerButton for="drawer-toggle" />
 
-        <HamburgerButton for="drawer-toggle" />
+    <LogoText href="/" data-astro-reload />
+  </div>
 
-        <LogoText href="/" data-astro-reload />
+  <div class="navbar-end">
+    <DiscordJoinButton href="https://discord.gg/TSMacaF9SG" />
 
+    <div hx-get="/partials/user_or_login/" hx-trigger="load" class="size-12">
     </div>
-
-    <div class="navbar-end">
-
-        <DiscordJoinButton href="https://discord.gg/TSMacaF9SG" />
-
-        <div hx-get="/user_or_login/" hx-trigger="load" class="size-12" />
-    </div>
+  </div>
 </nav>

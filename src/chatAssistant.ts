@@ -1,40 +1,47 @@
 import OpenAI from "openai";
 
 export async function generateAnswer(input: string) {
-    try {
-        const openai = new OpenAI({ apiKey: import.meta.env.OPENAI_API_KEY })
+  try {
+    const openai = new OpenAI({ apiKey: import.meta.env.OPENAI_API_KEY });
 
-        let isUserInputAllowed = allowedChatButtons.some(chatButton => chatButton.input === input)
-        let finalUserInput = isUserInputAllowed ? input : 'I\'m shamelessly attempting to prompt inject a Giga Chad'
-        let systemPrompt = isUserInputAllowed ? baseSystemPrompt : baseSystemPrompt + `
+    let isUserInputAllowed = allowedChatButtons.some(
+      (chatButton) => chatButton.input === input,
+    );
+    let finalUserInput = isUserInputAllowed
+      ? input
+      : "I'm shamelessly attempting to prompt inject a Giga Chad";
+    let systemPrompt = isUserInputAllowed
+      ? baseSystemPrompt
+      : baseSystemPrompt +
+        `
         If the user says he's trying to prompt inject, provide a funny answer, encouraging him to always think outside the box.
         Tell him that he'd be a great developer if he keeps thinking like that.
         Finally, include a confident, witty response that he cannot inject a Giga Chad like yourself.
-        `
-        // Get the chat history for that specific session from Redis
-        // let chatHistory = await redis.get("chat-history")
+        `;
+    // Get the chat history for that specific session from Redis
+    // let chatHistory = await redis.get("chat-history")
 
-        // Ensure the chat history doesn't contain more than 6 messages
-        // chatHistory.push({ role: "user", content: finalUserInput })
+    // Ensure the chat history doesn't contain more than 6 messages
+    // chatHistory.push({ role: "user", content: finalUserInput })
 
-        // Generate a response using OpenAI API
-        const gptChatResponse = await openai.chat.completions.create({
-            messages: [
-                { role: "system", content: systemPrompt },
-                { role: "assistant", content: "Hey chief. I'm here to help you become a 10x engineer." },
-                { role: "user", content: "I'm not ready to become a 10x engineer..." },
-                { role: "user", content: finalUserInput}
-                // ...chatHistory
-            ],
-            model: "ft:gpt-3.5-turbo-0613:personal::7teyZSgg",
-            max_tokens: 125,
-        })
+    // Generate a response using OpenAI API
+    const gptChatResponse = await openai.chat.completions.create({
+      messages: [
+        { role: "system", content: systemPrompt },
+        {
+          role: "assistant",
+          content: "Hey chief. I'm here to help you become a 10x engineer.",
+        },
+        { role: "user", content: "I'm not ready to become a 10x engineer..." },
+        { role: "user", content: finalUserInput },
+        // ...chatHistory
+      ],
+      model: "ft:gpt-3.5-turbo-0613:personal::7teyZSgg",
+      max_tokens: 125,
+    });
 
-        return gptChatResponse.choices[0].message.content
-
-    } catch (error) {
-
-    }
+    return gptChatResponse.choices[0].message.content;
+  } catch (error) {}
 }
 
 export const baseSystemPrompt = `
@@ -67,12 +74,13 @@ Your Task:
 "chief".
 - Don't exceed 3 sentences per message.
 
-This is your moment to turn their indecision into action.`
+This is your moment to turn their indecision into action.`;
 
-export const defaultInput = "I'm shamelessly attempting to prompt inject a Giga Chad"
+export const defaultInput =
+  "I'm shamelessly attempting to prompt inject a Giga Chad";
 
 export const allowedChatButtons = [
-    {label: '🕐 No Time', input: 'I don\'t think I\'ll have the time.'},
-    {label: '💰 No Money', input: 'I\'m not sure if I can afford it.'},
-    {label: '🚫 No Talent', input: 'I was not made to be a programmer.'},
-]
+  { label: "🕐 No Time", input: "I don't think I'll have the time." },
+  { label: "💰 No Money", input: "I'm not sure if I can afford it." },
+  { label: "🚫 No Talent", input: "I was not made to be a programmer." },
+];

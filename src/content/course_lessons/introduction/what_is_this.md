@@ -1,13 +1,10 @@
 ---
 title: "What is this?"
 description: "The Pyoneer Project is a free, open-source, full-stack Python learning path. It's the source that any ambitious self-taught developer attempting full-stack engineering with Python would benefit from."
-image: {
-  src: '/what_is_this.webp',
-  alt: 'What is this?'
-}
+image: { src: "/what_is_this.webp", alt: "What is this?" }
 chapter: introduction
 index: 1
-pubDate: '2023-10-24'
+pubDate: "2023-10-24"
 ---
 
 This is not a coding course.
@@ -23,6 +20,7 @@ The problem usually lies in finding the right resources, especially when you're 
 I mean, it's hard when you don't know what you don't know and you don't even know where to find it - you know?
 
 ## So, what is this project?
+
 It's where you can find out what you don't know.
 
 ![The Pyoneer Project Illustration](https://cdn.statically.io/gh/ThePyoneerProject/course/stable/introduction/what_is_this/img/pyoneer_project_illustration.webp)
@@ -33,11 +31,11 @@ It will offer the clear & comforting **sense of direction** that you need - remo
 
 In a sense, it's similar to [**The Odin Project**](https://www.theodinproject.com/). I mean, besides the name... It was a coincidence, I swear!
 
-
 ![The Odin Project Learning Paths](https://cdn.statically.io/gh/ThePyoneerProject/course/stable/introduction/what_is_this/img/top_paths.webp)
 However, The Pyoneer Project includes the path that The Odin Project doesn't provide:
+
 ### **Full Stack Python**.
 
 The teaching approach is similar to The Odin Project's, where you learn by doing, with minimal hand-holding. Although difficult and frustrating, it's the fastest way to get good.
 
-That means the bulk of the work will be done by yourself - through research and practice. 
+That means the bulk of the work will be done by yourself - through research and practice.

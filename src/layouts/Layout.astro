@@ -1,31 +1,39 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
-import  SpeedInsights  from "@vercel/speed-insights/astro"
+import { ViewTransitions } from "astro:transitions";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
-import '../css/base.css';
+import "../css/base.css";
 
-import '@fontsource/barlow/400.css';
-import '@fontsource/barlow/500.css';
-import '@fontsource/bebas-neue';
+import "@fontsource/barlow/400.css";
+import "@fontsource/barlow/500.css";
+import "@fontsource/bebas-neue";
 
 import TopNav from "../components/TopNav.astro";
-import SideNav from "../components/SideNav.astro";
 import Footer from "../components/Footer.astro";
-const { title, drawerClasses } = Astro.props
+const { title, drawerClasses } = Astro.props;
 ---
-<!doctype html>
-<html lang="en" class="scroll-smooth dark" style="color-scheme: dark" data-theme="dark">
-<head transition:persist>
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://www.google-analytics.com">
-    <!-- Google tag (gtag.js) -->
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-X2R59EPRQE"></script>
-    <script is:inline>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'G-X2R59EPRQE');
+<!doctype html>
+<html
+  lang="en"
+  class="scroll-smooth"
+  style="color-scheme: dark"
+  data-theme="dark"
+>
+  <head transition:persist>
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <!-- Google tag (gtag.js) -->
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-X2R59EPRQE"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-X2R59EPRQE");
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -35,92 +43,111 @@ const { title, drawerClasses } = Astro.props
     <title>{title} | The Pyoneer Project</title>
     <ViewTransitions />
     <SpeedInsights />
+    <script src="https://unpkg.com/htmx.org/dist/ext/class-tools.js"></script>
     <script src="https://unpkg.com/htmx.org"></script>
     <script src="https://unpkg.com/hyperscript.org"></script>
-</head>
-<body class="font-['Barlow']">
-{/* Drawer - https://daisyui.com/components/drawer/ */}
-<div class:list={['drawer', drawerClasses]}>
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body hx-ext="class-tools" class="font-['Barlow']">
+    {/* Drawer - https://daisyui.com/components/drawer/ */}
+    <div class:list={["drawer", drawerClasses]}>
+      {/* Track the drawer state with a checkbox */}
+      <input
+        id="drawer-toggle"
+        class="drawer-toggle"
+        type="checkbox"
+        autocomplete="off"
+        transition:persist
+      />
 
+      <div class="drawer-side !fixed z-10 mt-16 lg:max-w-fit">
+        <label
+          for="drawer-toggle"
+          aria-label="close sidebar"
+          class="drawer-overlay lg:hidden"></label>
 
-    {/* Track the drawer state with a checkbox */}
-    <input id="drawer-toggle" class="drawer-toggle" type="checkbox" autocomplete="off" transition:persist />
+        <div hx-get="/partials/side_navigation/" hx-trigger="load"></div>
+      </div>
 
-
-    <div class="drawer-side lg:max-w-fit !fixed z-10">
-
-        <label for="drawer-toggle" aria-label="close sidebar" class="drawer-overlay lg:hidden"></label>
-
-        <SideNav class="mt-16" />
-
-    </div>
-
-
-    <div class="drawer-content min-w-full">
-
+      <div class="drawer-content min-w-full">
         <TopNav transition:persist />
 
-        <main id="content" class="px-6 xs:px-7 animate-fade animate-ease-in animate-duration-75">
-            <slot>
-                <!-- Page content goes here -->
-            </slot>
+        <main
+          id="content"
+          class="mx-auto max-w-screen-xl animate-fade px-6 animate-duration-75 animate-ease-in xs:px-7"
+        >
+          <slot>
+            <!-- Page content goes here -->
+          </slot>
         </main>
 
         <Footer class="lg:mt-12" transition:persist />
-
+      </div>
     </div>
-</div>
 
-<script is:inline>
-    /**
-     * Frontend script for handling 'modal_url' query parameter.
-     *
-     * This script is designed to work in conjunction with the 'redirectDirectModalAccess' middleware.
-     * It detects the 'modal_url' parameter added by the middleware and triggers an HTMX request
-     * to display the modal dialog.
-     *
-     * See 'redirectDirectModalAccess' in middleware.ts for how the 'modal_url' parameter is set.
-     */
-    window.addEventListener('load', () => {
+    <script is:inline>
+      /**
+       * Frontend script for handling 'modal_url' query parameter.
+       *
+       * This script is designed to work in conjunction with the 'redirectDirectModalAccess' middleware.
+       * It detects the 'modal_url' parameter added by the middleware and triggers an HTMX request
+       * to display the modal dialog.
+       *
+       * See 'redirectDirectModalAccess' in middleware.ts for how the 'modal_url' parameter is set.
+       */
+      window.addEventListener("load", () => {
         const params = new URLSearchParams(window.location.search);
-        const modalUrl = params.get('modal_url');
+        const modalUrl = params.get("modal_url");
         if (modalUrl) {
-            // Decode the URL to ensure it's valid
-            const decodedUrl = decodeURIComponent(modalUrl);
+          // Decode the URL to ensure it's valid
+          const decodedUrl = decodeURIComponent(modalUrl);
 
-            // Get any other query parameters from the URL as an object to pass to HTMX request
-            const values = {};
-            for (const [key, value] of params) {
-                values[key] = value;
-            }
+          // Get any other query parameters from the URL as an object to pass to HTMX request
+          const values = {};
+          for (const [key, value] of params) {
+            values[key] = value;
+          }
 
-            // Trigger HTMX request to modal URL
-            htmx.ajax('GET', decodedUrl, { target: 'body', swap: 'beforeend', values })
+          // Trigger HTMX request to modal URL
+          htmx.ajax("GET", decodedUrl, {
+            target: "body",
+            swap: "beforeend",
+            values,
+          });
 
-            // Remove parameters from URL
-            window.history.replaceState({}, document.title, window.location.pathname);
+          // Remove parameters from URL
+          window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname,
+          );
         }
-    });
-</script>
+      });
+    </script>
 
-<script is:inline>
-    /**
-     *  Reinitializes HTMX after content swap by Astro's <ViewTransition/>.
-     *  Ensures new HTMX elements in the DOM are functional.
-     *
-     *  See https://htmx.org/docs/#3rd-party for more info.
-     */
-    document.addEventListener('astro:after-swap', () => {
-        htmx.process(document.body)
-    })
-</script>
+    <script is:inline>
+      /**
+       *  Reinitializes HTMX after content swap by Astro's <ViewTransition/>.
+       *  Ensures new HTMX elements in the DOM are functional.
+       *
+       *  See https://htmx.org/docs/#3rd-party for more info.
+       */
+      document.addEventListener("astro:after-swap", () => {
+        htmx.process(document.body);
+      });
+    </script>
 
-</body>
+    <style is:global>
+      /**
+       *  CSS for the drawer component.
+       *  Keeps the label (hamburger icon) in sync with the drawer state.
+       *
+       *  See https://daisyui.com/components/drawer/ for more info.
+       */
+      .drawer:has(.drawer-toggle:checked)
+        label[for="drawer-toggle"][class*="swap"] {
+        @apply swap-active;
+      }
+    </style>
+  </body>
 </html>
-
-<style is:global>
-    /* Keeps <HamburgerButton /> and drawer state in sync */
-    .drawer:has(.drawer-toggle:checked) label[for='drawer-toggle'][class*='swap'] {
-        @apply swap-active
-    }
-</style>

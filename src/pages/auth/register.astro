@@ -12,8 +12,8 @@ import Modal from "../../components/Modal.astro";
 import SocialButton from "../../components/auth/SocialButton.astro";
 import FormErrors from "../../components/auth/FormError.astro";
 
-export const prerender = false
-export const partial = true
+export const prerender = false;
+export const partial = true;
 
 const { request } = Astro;
 const { isLoggedIn } = await getUser();
@@ -24,10 +24,10 @@ if (isLoggedIn) {
 
 let error = null;
 
-if (request.method === 'POST') {
+if (request.method === "POST") {
   const formData = await request.formData();
-  const email = formData.get("email")?.toString()
-  const password = formData.get("password")?.toString()
+  const email = formData.get("email")?.toString();
+  const password = formData.get("password")?.toString();
 
   const result = await register(email, password);
 
@@ -40,38 +40,52 @@ if (request.method === 'POST') {
 ---
 
 <Modal>
-  <h3 class="text-xl font-bold mb-6">
-    Create your account
-  </h3>
+  <h3 class="mb-6 text-xl font-bold">Create your account</h3>
 
-  <form hx-post="/auth/register/"
-        hx-swap="outerHTML"
-        hx-target=".modal"
-        data-astro-reload>
-
+  <form
+    hx-post="/auth/register/"
+    hx-swap="outerHTML"
+    hx-target=".modal"
+    data-astro-reload
+  >
     {!!error && <FormErrors error={error} />}
 
-    <input type="email" name="email" placeholder="Email address" autocomplete="email" maxlength="320" class="input input-bordered input-ghost w-full mb-4">
-    <input type="password" name="password" placeholder="Password" autocomplete="new-password" class="input input-bordered input-ghost w-full mb-4">
+    <input
+      type="email"
+      name="email"
+      placeholder="Email address"
+      autocomplete="email"
+      maxlength="320"
+      class="input input-bordered input-ghost mb-4 w-full"
+    />
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      autocomplete="new-password"
+      class="input input-bordered input-ghost mb-4 w-full"
+    />
 
-    <button type="submit" class="btn btn-warning w-full mb-4">
-      Sign Up
-    </button>
+    <button type="submit" class="btn btn-warning mb-4 w-full"> Sign Up </button>
 
-    <span class="text-sm text-center font-light text-warning-600 dark:text-primary-500">
+    <span
+      class="text-warning-600 dark:text-primary-500 text-center text-sm font-light"
+    >
       Already have an account?
-      <a id="sign-up-link"
-         hx-get="/auth/login/"
-         hx-swap="outerHTML"
-         hx-target=".modal"
-         class="font-medium text-primary-content hover:underline hover:cursor-pointer">
+      <a
+        id="sign-up-link"
+        hx-get="/auth/login/"
+        hx-swap="outerHTML"
+        hx-target=".modal"
+        class="font-medium text-primary-content hover:cursor-pointer hover:underline"
+      >
         Sign in
       </a>
     </span>
 
-    <span class="divider text-sm flex justify-center mb-6">OR</span>
+    <span class="divider mb-6 flex justify-center text-sm">OR</span>
 
-    <div class="flex justify-center items-center gap-4">
+    <div class="flex items-center justify-center gap-4">
       <SocialButton provider="google" icon="ri:google-fill" />
       <SocialButton provider="discord" icon="ri:discord-fill" />
       <SocialButton provider="github" icon="ri:github-fill" />

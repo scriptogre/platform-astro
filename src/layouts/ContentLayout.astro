@@ -1,26 +1,29 @@
 ---
 import Layout from "./Layout.astro";
 
-const { title } = Astro.props
+const { title } = Astro.props;
 ---
+
 {/* On large (2x) screens, hide hamburger button and keep sidebar open */}
-<Layout {title} drawerClasses="2xl:drawer-open [&_label[for*='drawer']]:2xl:hidden">
+<Layout
+  {title}
+  drawerClasses="2xl:drawer-open [&_label[for*='drawer']]:2xl:hidden"
+>
+  <slot name="head" slot="head" />
 
-    <slot name="head" slot="head" />
+  <article class="mx-auto mt-8 max-w-2xl lg:mt-16">
+    <div class="text-start">
+      <slot name="header" />
+    </div>
 
-    <article class="mx-auto max-w-2xl mt-8 lg:mt-16">
+    <hr class="my-8 opacity-10" />
 
-        <div class="text-start">
-            <slot name="header" />
-        </div>
-
-        <hr class="my-8 opacity-10" />
-
-        <div class="mx-auto max-w-full prose text-justify hyphens-auto text-base-content">
-            <slot name="content">
-                <!-- Content (blog post / course lesson / etc.) goes here -->
-            </slot>
-        </div>
-
-    </article>
+    <div
+      class="prose mx-auto max-w-full hyphens-auto text-justify text-base-content"
+    >
+      <slot name="content">
+        <!-- Content (blog post / course lesson / etc.) goes here -->
+      </slot>
+    </div>
+  </article>
 </Layout>

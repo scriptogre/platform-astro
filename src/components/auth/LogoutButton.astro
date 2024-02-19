@@ -1,9 +1,10 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 const { label, ...rest } = Astro.props;
 ---
+
 <button id="logout-button" {...rest}>
-    <Icon name="mdi:logout" class="size-6" />
-    Logout
+  <Icon name="mdi:logout" class="size-6" />
+  Logout
 </button>

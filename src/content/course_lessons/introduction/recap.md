@@ -1,17 +1,13 @@
 ---
 title: "Recap"
 description: "The Pyoneer Project is a free, open-source, full-stack Python learning path. It's the source that any ambitious self-taught developer attempting full-stack engineering with Python would benefit from."
-image: {
-  src: '/recap.webp',
-  alt: 'Recap'
-}
+image: { src: "/recap.webp", alt: "Recap" }
 chapter: introduction
 index: 4
-pubDate: '2023-10-24'
+pubDate: "2023-10-24"
 ---
 
 - **Guidance, Not Coding**: This isn't a typical coding course. It's your roadmap for self-taught full-stack development, specifically in Python.
-  
 - **Sense of Direction**: This project clears the fog, offering a curated path and the best resources to help you move forward.
 
 - **Do It Yourself**: It's a hands-on journey where you're the driver. Expect minimal hand-holding but maximum growth.
@@ -24,10 +20,10 @@ pubDate: '2023-10-24'
 
 - **Who's It For**: Self-driven individuals hungry for a challenge. Not recommended for those seeking quick fixes.
 
-
 ## But wait!
+
 You received the Golden Card, right?
 
 Let's see what I got... What about a copy of **The Holy Grail of Front-end Resources** for **free**?
 
-*Unfortunately, this offer has expired :( Make sure to grab the Golden Card during the next module's release!*
+_Unfortunately, this offer has expired :( Make sure to grab the Golden Card during the next module's release!_

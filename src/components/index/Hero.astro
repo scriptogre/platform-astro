@@ -1,0 +1,65 @@
+---
+import { getLatestContentCollectionEntry } from "../../utils";
+
+import pythonLogo from "../../images/logo.webp";
+import ObnoxiousButton from "./ObnoxiousButton.svelte";
+import { Image } from "astro:assets";
+import Chat from "../chat/Chat.svelte";
+import NewsTag from "./NewsTag.astro";
+import BouncingAlert from "./BouncingAlert.astro";
+
+const { class: classList } = Astro.props;
+
+const { type: latestEntryType, url: latestEntryUrl } =
+  await getLatestContentCollectionEntry();
+const announcementMessage = `Check out the latest ${latestEntryType}! 🎉`;
+---
+
+<div class="flex min-h-screen flex-col items-center gap-24 pb-24 pt-24 lg:pb-0">
+  <NewsTag href={latestEntryUrl} message={announcementMessage} />
+
+  <div
+    class:list={[
+      classList,
+      "mx-auto flex w-full flex-col items-center gap-12 lg:flex-row",
+    ]}
+  >
+    <div
+      class="flex min-h-fit flex-grow flex-col items-center justify-center lg:px-4"
+    >
+      <div class="flex flex-col items-center pb-6 lg:flex-row lg:pb-8">
+        <Image
+          src={pythonLogo}
+          alt="Python Logo"
+          width="250"
+          height="250"
+          class="m-0 mb-3 h-16 w-16 lg:mb-0 lg:me-4"
+        />
+
+        <div class="flex flex-col">
+          <h1
+            class="mb-0 text-center font-['Bebas_Neue'] text-5xl tracking-wide text-gray-300 lg:whitespace-nowrap xl:tracking-wider"
+          >
+            The Pyoneer Course
+          </h1>
+          <span class="text-center text-lg text-base-content/80 lg:text-start">
+            For the ambitious, by the ambitious
+          </span>
+        </div>
+      </div>
+
+      <p class="max-w-[320px] pb-6 text-center text-2xl sm:max-w-none lg:pb-8">
+        Learn web development the way I wish I did.
+      </p>
+
+      <span class="pb-6 text-lg font-extralight"
+        >You won't get these tips from ChatGPT</span
+      >
+      <ObnoxiousButton client:load />
+    </div>
+
+    <Chat client:load />
+  </div>
+
+  <BouncingAlert href="#offer-section" message="Hey you! 👋" />
+</div>

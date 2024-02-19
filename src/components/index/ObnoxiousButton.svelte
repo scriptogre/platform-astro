@@ -5,6 +5,7 @@
   let clickCount = 0;
   let buttonLabel = 'DON\'T PRESS ME';
   let hiddenMessage = "I want to work with persistent people like you.";
+  let showConfetti = false;
   let finished = false;
 
   function handleClick() {
@@ -14,8 +15,12 @@
       if (clickCount > 5) buttonLabel = 'HOW DARE YOU?';
       if (clickCount > 10) buttonLabel = 'PERSISTENT, ARE WE NOT?';
       if (clickCount > 15) buttonLabel = 'OH, COME ON NOW!';
-      if (clickCount === 20) {
+      if (clickCount > 20) {
         buttonLabel = 'YOU ARE A TRUE PYONEER!';
+        showConfetti = true;
+      }
+      if (clickCount > 25) {
+        buttonLabel = 'I\'M DONE WITH YOU!';
         finished = true;
       }
     } else {

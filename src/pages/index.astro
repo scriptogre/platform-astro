@@ -1,71 +1,16 @@
 ---
-import {getLatestContentCollectionEntry} from "../utils";
+import { Icon } from "astro-icon/components";
+import Layout from "../layouts/Layout.astro";
 
-import Layout from '../layouts/Layout.astro';
-import pythonLogo from '../images/logo.webp';
-
-import NewsTag from "../components/index/NewsTag.astro";
-import BouncingAlert from "../components/index/BouncingAlert.astro";
+import Hero from "../components/index/Hero.astro";
+import Offer from "../components/index/Offer.astro";
 import Announcement from "../components/index/Announcement.astro";
-import Chat from "../components/chat/Chat.svelte";
-import ObnoxiousButton from "../components/index/ObnoxiousButton.svelte";
-import LogoHeader from "../components/index/LogoHeader.astro";
-
-const { type: latestEntryType, url: latestEntryUrl } = await getLatestContentCollectionEntry()
-const announcementMessage = `Check out the latest ${latestEntryType}! 🎉`;
 ---
 
 <Layout title="Your Path To Full Stack Python">
+  <Hero />
 
-  <div class="flex items-center justify-center mt-20 xl:mt-24">
-    <NewsTag href={latestEntryUrl} message={announcementMessage} />
-  </div>
+  <Offer />
 
-
-  <div class="flex flex-col lg:flex-row items-center max-w-screen-xl mx-auto my-12">
-
-    <div class="flex flex-grow flex-col justify-center items-center min-h-fit my-12 xl:my-16 lg:px-4">
-
-      <LogoHeader title="The Pyoneer Project"
-                  tagline="For the ambitious, by the ambitious"
-                  logoImage={pythonLogo}
-                  logoAlt="Python Logo"
-                  class="mb-6 lg:mb-8" />
-
-      <p class="text-xl xl:text-2xl text-gray-300 text-center mb-6 lg:mb-8 max-w-[320px] sm:max-w-none">
-        Learn Full-Stack Python the way I wish I had.
-      </p>
-
-      <span class="mb-6">
-        You won't get these tips from ChatGPT
-      </span>
-
-      <ObnoxiousButton client:load />
-    </div>
-
-    <div class="flex flex-col justify-center items-center my-12 xl:my-16 lg:px-4">
-
-      <Chat client:load />
-
-    </div>
-
-  </div>
-
-
-  <div class="flex flex-col justify-center items-center">
-
-    <BouncingAlert href="#news-section" message="Huge news! 🙏" />
-
-  </div>
-
-
-  <section id="news-section" class="h-screen grid place-content-center text-center py-6">
-
-    <Announcement
-        href={latestEntryUrl}
-        title={announcementMessage}
-        description="Press the golden card to check it out!" />
-
-  </section>
-
+  <Announcement />
 </Layout>

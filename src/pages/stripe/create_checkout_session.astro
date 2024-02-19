@@ -1,0 +1,31 @@
+---
+import { Stripe } from "stripe";
+import { getUser } from "../../auth";
+
+export const prerender = false;
+
+const { isLoggedIn } = await getUser();
+
+if (!isLoggedIn) {
+  return Astro.redirect("/auth/login");
+}
+
+const stripe = Stripe(
+  "sk_test_51OdprjHUzj9FTYepB23MwVWoLoKDrytP7lR2FUg7Ke5Xidy6XzTXaRSiv7rzk0hqKhFNDAecfPGAlc5ry78ao5fq007jsKf8Y8",
+);
+
+const session = await stripe.checkout.sessions.create({
+  line_items: [
+    {
+      // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+      price: "price_1Odrg7HUzj9FTYepMhrslSJo",
+      quantity: 1,
+    },
+  ],
+  mode: "payment",
+  success_url: `${Astro.url.origin}/stripe/checkout_success`,
+  cancel_url: `${Astro.url.origin}/stripe/checkout_cancelled`,
+});
+
+return Astro.redirect(session.url, 303);
+---

@@ -1,0 +1,141 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import { convertToRoman, getLatestContentCollectionEntry } from "../../utils";
+
+export const prerender = false;
+export const partial = true;
+
+const { title = "Course", class: classList, ...rest } = Astro.props;
+
+// Fetch content collections
+let chapters = await getCollection("course_chapters");
+let lessons = await getCollection("course_lessons");
+let blogs = await getCollection("blogs");
+
+// Sort chapters and lessons by index
+chapters.sort((a, b) => a.data.index - b.data.index);
+lessons.sort((a, b) => a.data.index - b.data.index);
+
+// Processing chapters and lessons data to create a structured array for UI rendering
+let chaptersArray = chapters.map((chapter) => {
+  return {
+    ...chapter,
+    lessons: lessons.filter((lesson) => lesson.data.chapter.id === chapter.id),
+  };
+});
+
+const { entry: latestEntry } = await getLatestContentCollectionEntry();
+
+// Get current url from request header (required because of how htmx works)
+let currentUrl = new URL(Astro.request.headers.get("hx-current-url"));
+---
+
+<nav
+  id="side-nav"
+  class={`${classList} side-nav font-extralight p-2 min-h-screen w-96 max-lg:bg-gradient-main max-lg:bg-fixed lg:backdrop-blur-xl border-r border-base-100`}
+  {...rest}
+>
+  <ul class="menu space-y-2 text-[1rem]">
+    {
+      /*
+        Course Menu
+        */
+    }
+    <li>
+      <details id="course-navigation" open>
+        <summary class="font-bold">
+          <Icon name="ri:graduation-cap-fill" class="size-5 text-warning" />
+          Course
+        </summary>
+        <ul>
+          {
+            chaptersArray.map((chapter) => {
+              return (
+                <li>
+                  <span class="menu-title text-[1rem] text-base-content/80">
+                    {convertToRoman(chapter.data.index)}. {chapter.data.title}
+                  </span>
+                  <ul class="mt-2 space-y-2">
+                    {chapter.lessons.map((lesson) => {
+                      let lessonPath = `/course/${lesson.slug}`;
+                      let isDisabled = lesson.data.isPaid;
+                      let isActive = currentUrl.pathname.includes(lessonPath);
+                      let isNew = latestEntry.slug === lesson.slug;
+
+                      return (
+                        <li
+                          title={lesson.data.title}
+                          class:list={[{ disabled: isDisabled }]}
+                        >
+                          {/* Bold and highlight active lesson */}
+                          <a
+                            href={!isDisabled && lessonPath}
+                            class:list={[
+                              {
+                                disabled: isDisabled,
+                                active: isActive,
+                                new: isNew,
+                              },
+                            ]}
+                          >
+                            <span class="overflow-hidden text-ellipsis">
+                              {lesson.data.index}. {lesson.data.title}
+                            </span>
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </details>
+    </li>
+
+    {
+      /*
+        Blog Menu
+        */
+    }
+    <li>
+      <details id="blog-navigation" open>
+        <summary class="font-bold">
+          <Icon name="ri:file-text-fill" class="size-5 text-orange-600" />
+          Blogs
+        </summary>
+        <ul class="mt-2">
+          {
+            blogs.map((blog) => {
+              let blogPath = `/blogs/${blog.slug}`;
+              let isDisabled = true;
+              let isActive = currentUrl.pathname.includes(blogPath);
+              let isNew = latestEntry.slug === blog.slug;
+
+              return (
+                <li title={blog.data.title}>
+                  <a
+                    href={blogPath}
+                    class:list={[
+                      {
+                        disabled: isDisabled,
+                        active: isActive,
+                        new: isNew,
+                      },
+                    ]}
+                  >
+                    <span class="overflow-hidden text-ellipsis">
+                      {blog.data.title}
+                    </span>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </details>
+    </li>
+  </ul>
+</nav>

@@ -1,17 +1,29 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 
 const { avatarUrl, userEmail } = Astro.props;
 ---
-<div class="dropdown dropdown-bottom dropdown-end">
-    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-        <span class="avatar size-10">
-            <Image src={avatarUrl || '/user-avatar.webp'} alt="User Avatar" width="40" height="40" class="rounded-full"/>
-        </span>
-    </div>
 
-    <ul tabindex="0" class="dropdown-content menu text-sm text-base-content font-semibold bg-base-100/60 backdrop-blur border border-base-100 rounded-xl">
-        <li class="menu-title"><span class="text-sm text-base-content">{userEmail}</span></li>
-        <slot />
-    </ul>
+<div class="dropdown dropdown-end dropdown-bottom">
+  <div tabindex="0" role="button" class="btn btn-circle btn-ghost">
+    <span class="avatar size-10">
+      <Image
+        src={avatarUrl || "/user-avatar.webp"}
+        alt="User Avatar"
+        width="40"
+        height="40"
+        class="rounded-full"
+      />
+    </span>
+  </div>
+
+  <ul
+    tabindex="0"
+    class="menu dropdown-content rounded-xl border border-base-100 bg-base-100/60 text-sm font-semibold text-base-content backdrop-blur"
+  >
+    <li class="menu-title">
+      <span class="text-sm text-base-content">{userEmail}</span>
+    </li>
+    <slot />
+  </ul>
 </div>

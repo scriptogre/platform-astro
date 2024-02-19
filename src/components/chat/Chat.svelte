@@ -38,34 +38,38 @@
     }
 </script>
 
-<div bind:this={chatContainer} id="chat-container" class="flex flex-col w-full max-w-xl max-lg:min-h-[20rem] max-lg:max-h-[35rem] lg:h-[20rem] p-8 gap-y-0.5 overflow-y-auto rounded-l-box rounded-tr-box max-lg:rounded-r-box bg-base-100/20 border border-base-100 relative scroll-smooth">
-    {#each messages as message}
-        <ChatMessage sender={message.sender}>
-            {message.content}
-        </ChatMessage>
-    {/each}
+<div class="flex flex-col justify-center items-center">
 
-    {#if showLoading }
-        <div class="order-last" use:scrollChatToBottom>
-            <ChatMessage sender="assistant">
-                <span class="loading loading-dots loading-sm"></span>
+    <div bind:this={chatContainer} id="chat-container" class="flex flex-col w-full max-w-xl max-lg:min-h-[20rem] max-lg:max-h-[35rem] lg:h-[20rem] p-8 gap-y-0.5 overflow-y-auto rounded-l-box rounded-tr-box max-lg:rounded-r-box bg-base-100/20 border border-base-100 relative scroll-smooth">
+        {#each messages as message}
+            <ChatMessage sender={message.sender}>
+                {message.content}
             </ChatMessage>
-        </div>
-    {/if}
-</div>
+        {/each}
 
-<div id="chat-buttons" class="flex w-full gap-0.5 justify-center mt-3">
-    {#each buttons as button}
-        <button class="btn btn-ghost" on:click={sendMessage(button)} disabled={disableButtons}>
-            {button.label}
-        </button>
-    {/each}
-</div>
+        {#if showLoading }
+            <div class="order-last" use:scrollChatToBottom>
+                <ChatMessage sender="assistant">
+                    <span class="loading loading-dots loading-sm"></span>
+                </ChatMessage>
+            </div>
+        {/if}
+    </div>
 
-<span id="chat-excuses-counter" class="flex justify-center w-full text-lg text-gray-400 mt-3">
-    {#if excusesCount === 0}
-        📸 🤨 No excuses left
-    {:else}
-        Excuses {excusesCount}/3
-    {/if}
-</span>
+    <div id="chat-buttons" class="flex w-full gap-0.5 justify-center mt-3">
+        {#each buttons as button}
+            <button class="btn btn-ghost" on:click={sendMessage(button)} disabled={disableButtons}>
+                {button.label}
+            </button>
+        {/each}
+    </div>
+
+    <span id="chat-excuses-counter" class="flex justify-center w-full text-lg text-gray-400 mt-3">
+        {#if excusesCount === 0}
+            📸 🤨 No excuses left
+        {:else}
+            Excuses {excusesCount}/3
+        {/if}
+    </span>
+
+</div>

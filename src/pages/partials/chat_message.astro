@@ -1,26 +1,28 @@
 ---
 import ChatMessage from "../../components/chat/ChatMessage.svelte";
-import {generateAnswer} from "../../chatAssistant";
-import {isHtmxRequest} from "../../utils";
+import { generateAnswer } from "../../chatAssistant";
+import { isHtmxRequest } from "../../utils";
 
-const { request, redirect } = Astro
-export const prerender = false
+const { request, redirect } = Astro;
+export const prerender = false;
 
 if (!isHtmxRequest(request)) {
-    return redirect('/')
+  return redirect("/");
 }
 
-let sender
-let message
-if (request.method === 'POST') {
-    let formData = await Astro.request.formData()
-    sender = formData.get('sender')
-    let input = formData.get('input')
-    if (sender == 'assistant') {
-        message = await generateAnswer(input)
-    } else if (sender == 'user') {
-        message = input
-    }
+let sender;
+let message;
+
+if (request.method === "POST") {
+  let formData = await Astro.request.formData();
+  sender = formData.get("sender");
+  let input = formData.get("input");
+  if (sender == "assistant") {
+    message = await generateAnswer(input);
+  } else if (sender == "user") {
+    message = input;
+  }
 }
 ---
+
 <ChatMessage {sender} {message} />
